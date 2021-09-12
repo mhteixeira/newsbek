@@ -78,6 +78,8 @@ export async function getStaticPaths() {
 }
 
 export default function Post({ title, content, date }: any) {
+  const router = useRouter();
+
   return (
     <>
       <Head>

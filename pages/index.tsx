@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Header from "../components/Header";
 import Link from "next/link";
@@ -35,6 +35,8 @@ export async function getServerSideProps() {
 }
 
 const Home: NextPage = ({ rows }: any) => {
+  const [searchText, setSearchText] = useState("");
+
   return (
     <>
       <Head>
@@ -45,7 +47,24 @@ const Home: NextPage = ({ rows }: any) => {
       <Header />
       <main className={styles.mainContent}>
         <article>
+          <div className={styles.searchBar}>
+            <input
+              type="text"
+              placeholder="Buscar posts"
+              onChange={(e) => {
+                setSearchText(e.target.value);
+                console.log(e.target.value);
+              }}
+            />
+          </div>
           {rows.map((row: any) => {
+            const filter = searchText.toUpperCase().trim();
+            const title = row[0].toUpperCase().trim();
+
+            if (searchText != "") {
+              if (title.indexOf(filter) == -1) return <></>;
+            }
+
             const adress = "/posts/" + row[3];
             return (
               <div key={row[0]} className={styles.card}>
