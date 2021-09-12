@@ -29,7 +29,7 @@ export async function getServerSideProps({ query }: any) {
   rows?.shift();
 
   const row = rows?.find((row) => row[3] === id);
-  let [title, content, date] = ["Erro", "Fale com algum dev :(", "Erro"];
+  let [title, content, date] = ["Erro", "Fale com algum dev :(", "--/--/--"];
 
   if (row) {
     title = row[0];
