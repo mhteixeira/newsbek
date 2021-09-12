@@ -5,10 +5,11 @@ import Header from "../../components/Header";
 import Link from "next/link";
 import { google } from "googleapis";
 import ReactMarkdown from "react-markdown";
+import { useRouter } from "next/router";
 
-export async function getServerSideProps({ query }: any) {
-  const { id } = query;
-
+export async function getStaticProps(context: any) {
+  const id = context.params.id;
+  console.log(id);
   const target = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
   const jwt = new google.auth.JWT(
     process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
@@ -44,6 +45,36 @@ export async function getServerSideProps({ query }: any) {
       date,
     },
   };
+}
+
+export async function getStaticPaths() {
+  const target = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
+  const jwt = new google.auth.JWT(
+    process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
+    undefined,
+    (process.env.GOOGLE_SHEETS_PRIVATE_KEY || "").replace(/\\n/g, "\n"),
+    target
+  );
+
+  const range = `NewsBek`;
+  const sheets = google.sheets({ version: "v4", auth: jwt });
+  const response = await sheets.spreadsheets.values.get({
+    spreadsheetId: process.env.SHEET_ID,
+    range,
+  });
+  const rows = response.data.values;
+
+  // Get the paths we want to pre-render based on posts
+  const paths = rows?.map((row) => ({
+    params: { id: row[3] },
+  }));
+
+  // console.log(paths);
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: blocking } will server-render pages
+  // on-demand if the path doesn't exist.
+  return { paths, fallback: "blocking" };
 }
 
 export default function Post({ title, content, date }: any) {
