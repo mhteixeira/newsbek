@@ -52,7 +52,10 @@ const Home: NextPage = ({ rows }: any) => {
                 <Link href={adress}>
                   <a>{row[0]}</a>
                 </Link>
-                <h3>{row[2]}</h3>
+                <h3>
+                  <span> {row[2]}</span>
+                  <br />({row[5]} de leitura)
+                </h3>
               </div>
             );
           })}
