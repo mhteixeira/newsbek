@@ -45,7 +45,7 @@ function Header() {
         style={{ height: isShrunk ? 80 : 120 }}
       >
         <div className={styles.content}>
-          <Link href="/newsbek">
+          <Link href="/">
             <a>
               <div className={isShrunk ? styles.logoCollapsed : styles.logo}>
                 <img
@@ -57,7 +57,7 @@ function Header() {
             </a>
           </Link>
 
-          <Link href="/newsbek">
+          <Link href="/">
             <a
               className={styles.pageTitle}
               style={{
@@ -71,7 +71,7 @@ function Header() {
           </Link>
         </div>
         <div className={styles.mobileContent}>
-          <Link href="/newsbek">
+          <Link href="/">
             <a>
               <div className={styles.mobileLogoAndText}>
                 <img

@@ -20,7 +20,7 @@ export async function getServerSideProps() {
   const sheets = google.sheets({ version: "v4", auth: jwt });
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
-    range, // sheet name
+    range,
   });
 
   // @ts-ignore
@@ -46,7 +46,7 @@ const Home: NextPage = ({ rows }: any) => {
       <main className={styles.mainContent}>
         <article>
           {rows.map((row: any) => {
-            const adress = "/newsbek/" + (rows.indexOf(row) + 1);
+            const adress = "/posts/" + row[3];
             return (
               <div key={row[0]} className={styles.card}>
                 <Link href={adress}>
