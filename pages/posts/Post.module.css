@@ -11,7 +11,7 @@
 
 .mainContent article {
   width: 600px;
-  margin: 0 5rem;
+  margin: 0 2.5rem;
 }
 
 .mainContent h1 {
@@ -54,6 +54,7 @@
 
 .mainContent img {
   padding: 2rem;
+  margin-left: -2rem;
 }
 
 .mainContent p {
@@ -71,7 +72,7 @@
   bottom: -16px;
   left: 0;
   width: 20%;
-  border: 3px solid var(--color-primary);
+  border: 2px solid var(--color-primary);
 }
 
 .mainContent h2::after {
@@ -111,6 +112,7 @@
     margin-top: 0;
     padding-top: 0;
     min-height: calc(100vh - 80px);
+    margin: 0 2rem;
   }
 }
 
@@ -134,4 +136,10 @@
   height: 100px;
   text-decoration: none !important;
   font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+  .mainContent img {
+    height: 200px;
+  }
 }

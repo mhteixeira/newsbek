@@ -30,3 +30,15 @@ a {
 * {
   box-sizing: border-box;
 }
+
+@media (max-width: 768px) {
+  :root {
+    font-size: 57%;
+  }
+}
+
+@media (max-width: 425px) {
+  :root {
+    font-size: 52%;
+  }
+}
