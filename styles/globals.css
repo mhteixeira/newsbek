@@ -1,9 +1,25 @@
+:root {
+  font-size: 62.5%;
+
+  --color-bg: #ffebb7;
+  --color-bg-light: #fff5da;
+
+  --color-primary: #041e7a;
+  --color-primary-light: #8fbadb;
+  --color-primary-light-hover: #94b2c9;
+
+  --color-secondary: #ffc90b;
+
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-white-transparent: #ffffffaa;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 a {
