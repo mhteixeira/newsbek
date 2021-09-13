@@ -39,12 +39,12 @@ a {
 
 @media (max-width: 768px) {
   :root {
-    font-size: 57%;
+    font-size: 60%;
   }
 }
 
 @media (max-width: 425px) {
   :root {
-    font-size: 52%;
+    font-size: 57%;
   }
 }

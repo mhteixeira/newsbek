@@ -85,7 +85,7 @@ export default function Post({ title, content, date }: any) {
     <>
       <Head>
         <title>Newsbek</title>
-        <meta name="description" content="A newsletter da Rateria" />
+        <meta name="description" content="A newsletter da Rateria!" />
         <link rel="icon" href="/images/logo-fundo-azul.svg" />
       </Head>
 

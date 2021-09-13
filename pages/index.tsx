@@ -42,7 +42,7 @@ const Home: NextPage = ({ rows }: any) => {
     <>
       <Head>
         <title>Newsbek</title>
-        <meta name="description" content="A bateria da Escola Politécnica" />
+        <meta name="description" content="A newsletter da Rateria!" />
         <link rel="icon" href="/images/logo-fundo-azul.svg" />
       </Head>
       <Header />
