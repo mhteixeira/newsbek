@@ -87,13 +87,6 @@ function Header({ blurDataURL }: any) {
 					<Link href="/">
 						<a>
 							<div className={styles.mobileLogoAndText}>
-								{/* <img
-									src="/images/logo-fundo-azul.svg"
-									alt="Rateria"
-									style={{ width: 60, height: 60 }}
-									
-
-								/> */}
 								<Image
 									src={logo}
 									alt="Logo da Rateria"
