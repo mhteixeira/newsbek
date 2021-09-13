@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 import logo from '../../public/images/logo-fundo-azul.svg';
 
-const shimmer = (w, h) => `
+const shimmer = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <linearGradient id="g">
