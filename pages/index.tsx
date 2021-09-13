@@ -7,7 +7,7 @@ import Link from "next/link";
 import { getRows } from "../libs/getDataFromSheets";
 import { google } from "googleapis";
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const target = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
   const jwt = new google.auth.JWT(
     process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
@@ -31,6 +31,7 @@ export async function getServerSideProps() {
     props: {
       rows,
     },
+    revalidate: 30,
   };
 }
 
