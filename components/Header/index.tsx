@@ -51,6 +51,11 @@ function Header({ blurDataURL }: any) {
 					<Link href="/">
 						<a>
 							<div className={isShrunk ? styles.logoCollapsed : styles.logo}>
+								{/* <img
+									src="/images/logo-fundo-azul.svg"
+									alt="Rateria"
+									className={isShrunk ? styles.collapsed : styles.image}
+								/> */}
 								<Image
 									src={logo}
 									alt="Logo da Rateria"

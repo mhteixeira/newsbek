@@ -63,6 +63,7 @@ export async function getStaticProps(context: any) {
 	});
 
 	// @ts-ignore
+<<<<<<< HEAD
 	const rows = response.data.values || [];
 	rows.shift();
 
@@ -74,7 +75,12 @@ export async function getStaticProps(context: any) {
 
 	let nextPost = ['#', '', ''];
 	if (rowIndex !== rows.length - 1) nextPost = rows[rowIndex + 1];
+=======
+	const rows = response.data.values;
+	rows?.shift();
+>>>>>>> parent of 2ce6378 (feat: interaction between pages)
 
+	const row = rows?.find((row) => row[3] === id);
 	let [title, content, date] = ['Erro', 'Fale com algum dev :(', '--/--/--'];
 
 	if (row) {
@@ -89,8 +95,6 @@ export async function getStaticProps(context: any) {
 			content,
 			date,
 			blurDataURL: base64,
-			nextPost,
-			previousPost,
 		},
 		revalidate: 30,
 	};
@@ -122,14 +126,7 @@ export async function getStaticPaths() {
 	return { paths, fallback: true };
 }
 
-export default function Post({
-	title,
-	content,
-	date,
-	blurDataURL,
-	nextPost,
-	previousPost,
-}: any) {
+export default function Post({ title, content, date, blurDataURL }: any) {
 	const router = useRouter();
 	const renderers = {
 		img: MyImage,
@@ -151,34 +148,10 @@ export default function Post({
 						<br />
 						{title}
 					</h1>
-					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>
-					<div></div>
-					{/* <div className={styles.arrows}>
-						{previousPost[0][0] === '#' ? (
-							<div></div>
-						) : (
-							<Link href={'/posts/' + previousPost[3]}>
-								<a>
-									<div>←</div> {previousPost[0]}
-								</a>
-							</Link>
-						)}
-						{nextPost[0][0] === '#' ? (
-							<div></div>
-						) : (
-							<Link href={'/posts/' + nextPost[3]}>
-								<a>
-									<div>→</div>
-									{nextPost[0]}
-								</a>
-							</Link>
-						)}
-					</div> */}
-					<div className={styles.back}>
-						<Link href="/">
-							<a>Voltar ao menu</a>
-						</Link>
-					</div>
+					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>;
+					<Link href="/">
+						<a className={styles.back}> ← Voltar à página inicial</a>
+					</Link>
 				</article>
 			</main>
 		</>
