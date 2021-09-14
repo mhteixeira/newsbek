@@ -113,7 +113,9 @@ export async function getStaticPaths() {
 		spreadsheetId: process.env.SHEET_ID,
 		range,
 	});
-	const rows = response.data.values;
+	let rows = response.data.values;
+
+	rows = rows?.filter((row) => row[3][0] != '-');
 
 	const paths = rows?.map((row) => ({
 		params: { id: row[3] },
