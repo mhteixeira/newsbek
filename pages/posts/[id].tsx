@@ -134,10 +134,12 @@ export default function Post({ title, content, date, blurDataURL }: any) {
 						<br />
 						{title}
 					</h1>
-					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>;
-					<Link href="/">
-						<a className={styles.back}> ← Voltar à página inicial</a>
-					</Link>
+					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>
+					<div className={styles.back}>
+						<Link href="/">
+							<a>Voltar ao menu</a>
+						</Link>
+					</div>
 				</article>
 			</main>
 		</>
