@@ -66,7 +66,21 @@ export async function getStaticProps(context: any) {
 	const rows = response.data.values;
 	rows?.shift();
 
-	const row = rows?.find((row) => row[3] === id);
+	let rowIndex = -1;
+	const row = rows?.find((row) => {
+		if (row[3] === id) rowIndex = rows.indexOf(row);
+		return row[3] === id;
+	});
+
+	let previousPost = ['#', '/'];
+	let nextPost = ['#', '/'];
+
+	if (row && rows && rowIndex > 0)
+		previousPost = [rows[rowIndex - 1][0], rows[rowIndex - 1][3]];
+
+	if (row && rows && rowIndex < rows?.length)
+		nextPost = [rows[rowIndex + 1][0], rows[rowIndex + 1][3]];
+
 	let [title, content, date] = ['Erro', 'Fale com algum dev :(', '--/--/--'];
 
 	if (row) {
@@ -81,6 +95,8 @@ export async function getStaticProps(context: any) {
 			content,
 			date,
 			blurDataURL: base64,
+			previousPost,
+			nextPost,
 		},
 		revalidate: 30,
 	};
@@ -103,8 +119,6 @@ export async function getStaticPaths() {
 	});
 	let rows = response.data.values;
 
-	console.log(rows);
-
 	const paths = rows?.map((row) => ({
 		params: { id: row[3] },
 	}));
@@ -112,7 +126,14 @@ export async function getStaticPaths() {
 	return { paths, fallback: true };
 }
 
-export default function Post({ title, content, date, blurDataURL }: any) {
+export default function Post({
+	title,
+	content,
+	date,
+	blurDataURL,
+	previousPost,
+	nextPost,
+}: any) {
 	const router = useRouter();
 	const renderers = {
 		img: MyImage,
@@ -135,6 +156,27 @@ export default function Post({ title, content, date, blurDataURL }: any) {
 						{title}
 					</h1>
 					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>
+					<div className={styles.arrows}>
+						{previousPost[0][0] === '#' ? (
+							<div></div>
+						) : (
+							<Link href={'/posts/' + previousPost[1]}>
+								<a>
+									<div>←</div> {previousPost[0]}
+								</a>
+							</Link>
+						)}
+						{nextPost[0][0] === '#' ? (
+							<div></div>
+						) : (
+							<Link href={'/posts/' + nextPost[1]}>
+								<a>
+									<div>→</div>
+									{nextPost[0]}
+								</a>
+							</Link>
+						)}
+					</div>
 					<div className={styles.back}>
 						<Link href="/">
 							<a>Voltar ao menu</a>

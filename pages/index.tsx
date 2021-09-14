@@ -4,11 +4,9 @@ import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
 import Header from '../components/Header';
 import Link from 'next/link';
-import { getRows } from '../libs/getDataFromSheets';
 import { google } from 'googleapis';
 
 import { getPlaiceholder } from 'plaiceholder';
-import { InferGetStaticPropsType } from 'next';
 
 export async function getStaticProps() {
 	const { base64 } = await getPlaiceholder('/images/logo-fundo-azul.svg');
