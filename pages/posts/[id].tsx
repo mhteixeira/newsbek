@@ -3,10 +3,45 @@ import Head from 'next/head';
 import styles from './Post.module.css';
 import Header from '../../components/Header';
 import Link from 'next/link';
+import Image from 'next/image';
 import { google } from 'googleapis';
 import ReactMarkdown from 'react-markdown';
 import { useRouter } from 'next/router';
 import { getPlaiceholder } from 'plaiceholder';
+import { useState } from 'react';
+
+const shimmer = (w: number, h: number) => `
+<svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="g">
+      <stop stop-color="#fff5da" offset="20%" />
+      <stop stop-color="#ffebb7" offset="50%" />
+      <stop stop-color="#fff5da" offset="70%" />
+    </linearGradient>
+  </defs>
+  <rect width="${w}" height="${h}" fill="#fff5da" />
+  <rect id="r" width="${w}" height="${h}" fill="url(#g)" />
+  <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
+</svg>`;
+
+const toBase64 = (str: string) =>
+	typeof window === 'undefined'
+		? Buffer.from(str).toString('base64')
+		: window.btoa(str);
+
+const MyImage = (props: any) => {
+	return (
+		<Image
+			alt={'next/image'}
+			src={props.src}
+			layout="responsive"
+			placeholder="blur"
+			blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+			width={600}
+			height={400}
+		/>
+	);
+};
 
 export async function getStaticProps(context: any) {
 	const { base64 } = await getPlaiceholder('/images/logo-fundo-azul.svg');
@@ -69,21 +104,18 @@ export async function getStaticPaths() {
 	});
 	const rows = response.data.values;
 
-	// Get the paths we want to pre-render based on posts
 	const paths = rows?.map((row) => ({
 		params: { id: row[3] },
 	}));
 
-	// console.log(paths);
-
-	// We'll pre-render only these paths at build time.
-	// { fallback: blocking } will server-render pages
-	// on-demand if the path doesn't exist.
 	return { paths, fallback: true };
 }
 
 export default function Post({ title, content, date, blurDataURL }: any) {
 	const router = useRouter();
+	const renderers = {
+		img: MyImage,
+	};
 
 	return (
 		<>
@@ -101,7 +133,7 @@ export default function Post({ title, content, date, blurDataURL }: any) {
 						<br />
 						{title}
 					</h1>
-					<ReactMarkdown>{content}</ReactMarkdown>
+					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>;
 					<Link href="/">
 						<a className={styles.back}> ← Voltar à página inicial</a>
 					</Link>
