@@ -47,7 +47,6 @@ export async function getStaticProps(context: any) {
 	const { base64 } = await getPlaiceholder('/images/logo-fundo-azul.svg');
 
 	const id = context.params.id;
-	console.log(id);
 	const target = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 	const jwt = new google.auth.JWT(
 		process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
@@ -70,15 +69,11 @@ export async function getStaticProps(context: any) {
 	const row = rows.find((row) => row[3] === id) || [];
 
 	let rowIndex = rows?.indexOf(row);
-
 	let previousPost = ['#', '', ''];
 	if (rowIndex !== 0) previousPost = rows[rowIndex - 1];
 
 	let nextPost = ['#', '', ''];
-	if (rowIndex !== rows.length) nextPost = rows[rowIndex + 1];
-
-	console.log(nextPost);
-	console.log(previousPost);
+	if (rowIndex !== rows.length - 1) nextPost = rows[rowIndex + 1];
 
 	let [title, content, date] = ['Erro', 'Fale com algum dev :(', '--/--/--'];
 
@@ -140,7 +135,6 @@ export default function Post({
 		img: MyImage,
 	};
 
-	console.log(nextPost[0]);
 	return (
 		<>
 			<Head>
@@ -158,6 +152,7 @@ export default function Post({
 						{title}
 					</h1>
 					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>
+					<div></div>
 					<div className={styles.arrows}>
 						{previousPost[0][0] === '#' ? (
 							<div></div>
