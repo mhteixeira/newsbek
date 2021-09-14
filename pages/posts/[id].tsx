@@ -68,12 +68,12 @@ export async function getStaticProps(context: any) {
 
 	const row = rows.find((row) => row[3] === id) || [];
 
-	let rowIndex = rows?.indexOf(row);
-	let previousPost = ['#', '', ''];
-	if (rowIndex !== 0) previousPost = rows[rowIndex - 1];
+	// let rowIndex = rows?.indexOf(row);
+	// let previousPost = ['#', '', ''];
+	// if (rowIndex !== 0) previousPost = rows[rowIndex - 1];
 
-	let nextPost = ['#', '', ''];
-	if (rowIndex !== rows.length - 1) nextPost = rows[rowIndex + 1];
+	// let nextPost = ['#', '', ''];
+	// if (rowIndex !== rows.length - 1) nextPost = rows[rowIndex + 1];
 
 	let [title, content, date] = ['Erro', 'Fale com algum dev :(', '--/--/--'];
 
@@ -89,8 +89,6 @@ export async function getStaticProps(context: any) {
 			content,
 			date,
 			blurDataURL: base64,
-			nextPost,
-			previousPost,
 		},
 		revalidate: 30,
 	};
@@ -113,8 +111,6 @@ export async function getStaticPaths() {
 	});
 	let rows = response.data.values;
 
-	console.log(rows);
-
 	const paths = rows?.map((row) => ({
 		params: { id: row[3] },
 	}));
@@ -122,14 +118,7 @@ export async function getStaticPaths() {
 	return { paths, fallback: true };
 }
 
-export default function Post({
-	title,
-	content,
-	date,
-	blurDataURL,
-	nextPost,
-	previousPost,
-}: any) {
+export default function Post({ title, content, date, blurDataURL }: any) {
 	const router = useRouter();
 	const renderers = {
 		img: MyImage,
