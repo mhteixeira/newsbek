@@ -72,6 +72,8 @@ const Home: NextPage = ({ rows, blurDataURL }: any) => {
 							if (title.indexOf(filter) == -1) return <></>;
 						}
 
+						if (row[0][0] === '#') return <h2>{row[0].slice(2)}</h2>;
+
 						const adress = '/posts/' + row[3];
 						return (
 							<div key={row[0]} className={styles.card}>
