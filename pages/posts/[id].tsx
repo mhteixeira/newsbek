@@ -63,22 +63,8 @@ export async function getStaticProps(context: any) {
 	});
 
 	// @ts-ignore
-<<<<<<< HEAD
-	const rows = response.data.values || [];
-	rows.shift();
-
-	const row = rows.find((row) => row[3] === id) || [];
-
-	let rowIndex = rows?.indexOf(row);
-	let previousPost = ['#', '', ''];
-	if (rowIndex !== 0) previousPost = rows[rowIndex - 1];
-
-	let nextPost = ['#', '', ''];
-	if (rowIndex !== rows.length - 1) nextPost = rows[rowIndex + 1];
-=======
 	const rows = response.data.values;
 	rows?.shift();
->>>>>>> parent of 2ce6378 (feat: interaction between pages)
 
 	const row = rows?.find((row) => row[3] === id);
 	let [title, content, date] = ['Erro', 'Fale com algum dev :(', '--/--/--'];
