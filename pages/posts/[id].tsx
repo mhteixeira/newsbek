@@ -113,7 +113,9 @@ export async function getStaticPaths() {
 	});
 	let rows = response.data.values;
 
-	rows = rows?.filter((row) => row[3][0] != '-');
+	rows = rows?.filter((row) => row[3][0] !== '-');
+
+	console.log(rows);
 
 	const paths = rows?.map((row) => ({
 		params: { id: row[3] },
@@ -153,7 +155,7 @@ export default function Post({
 					</h1>
 					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>
 					<div></div>
-					<div className={styles.arrows}>
+					{/* <div className={styles.arrows}>
 						{previousPost[0][0] === '#' ? (
 							<div></div>
 						) : (
@@ -173,7 +175,7 @@ export default function Post({
 								</a>
 							</Link>
 						)}
-					</div>
+					</div> */}
 					<div className={styles.back}>
 						<Link href="/">
 							<a>Voltar ao menu</a>
