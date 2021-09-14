@@ -64,10 +64,19 @@ export async function getStaticProps(context: any) {
 	});
 
 	// @ts-ignore
-	const rows = response.data.values;
-	rows?.shift();
+	const rows = response.data.values || [];
+	rows.shift();
 
-	const row = rows?.find((row) => row[3] === id);
+	const row = rows.find((row) => row[3] === id) || [];
+
+	const rowIndex = rows?.indexOf(row);
+
+	const nextPost = rows[rowIndex + 1];
+	const previousPost = rows[rowIndex - 1];
+
+	console.log(nextPost[0]);
+	console.log(previousPost);
+
 	let [title, content, date] = ['Erro', 'Fale com algum dev :(', '--/--/--'];
 
 	if (row) {
@@ -82,6 +91,8 @@ export async function getStaticProps(context: any) {
 			content,
 			date,
 			blurDataURL: base64,
+			nextPost,
+			previousPost,
 		},
 		revalidate: 30,
 	};
@@ -111,12 +122,20 @@ export async function getStaticPaths() {
 	return { paths, fallback: true };
 }
 
-export default function Post({ title, content, date, blurDataURL }: any) {
+export default function Post({
+	title,
+	content,
+	date,
+	blurDataURL,
+	nextPost,
+	previousPost,
+}: any) {
 	const router = useRouter();
 	const renderers = {
 		img: MyImage,
 	};
 
+	console.log(nextPost[0]);
 	return (
 		<>
 			<Head>
@@ -133,10 +152,33 @@ export default function Post({ title, content, date, blurDataURL }: any) {
 						<br />
 						{title}
 					</h1>
-					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>;
-					<Link href="/">
-						<a className={styles.back}> ← Voltar à página inicial</a>
-					</Link>
+					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>
+					<div className={styles.arrows}>
+						{previousPost[0][0] === '#' ? (
+							<div></div>
+						) : (
+							<Link href={'/posts/' + previousPost[3]}>
+								<a>
+									<div>←</div> {previousPost[0]}
+								</a>
+							</Link>
+						)}
+						{nextPost[0][0] === '#' ? (
+							<div></div>
+						) : (
+							<Link href={'/posts/' + nextPost[3]}>
+								<a>
+									<div>→</div>
+									{nextPost[0]}
+								</a>
+							</Link>
+						)}
+					</div>
+					<div className={styles.back}>
+						<Link href="/">
+							<a>Voltar ao menu</a>
+						</Link>
+					</div>
 				</article>
 			</main>
 		</>

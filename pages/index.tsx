@@ -64,13 +64,17 @@ const Home: NextPage = ({ rows, blurDataURL }: any) => {
 							}}
 						/>
 					</div>
+
 					{rows.map((row: any) => {
 						const filter = searchText.toUpperCase().trim();
 						const title = row[0].toUpperCase().trim();
 
 						if (searchText != '') {
-							if (title.indexOf(filter) == -1) return <></>;
+							if (title.indexOf(filter) == -1 || row[0][0] === '#')
+								return <></>;
 						}
+
+						if (row[0][0] === '#') return <h2>{row[0].slice(2)}</h2>;
 
 						const adress = '/posts/' + row[3];
 						return (
