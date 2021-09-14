@@ -113,8 +113,6 @@ export async function getStaticPaths() {
 	});
 	let rows = response.data.values;
 
-	rows = rows?.filter((row) => row[3][0] !== '-');
-
 	console.log(rows);
 
 	const paths = rows?.map((row) => ({
