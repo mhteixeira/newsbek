@@ -69,12 +69,15 @@ export async function getStaticProps(context: any) {
 
 	const row = rows.find((row) => row[3] === id) || [];
 
-	const rowIndex = rows?.indexOf(row);
+	let rowIndex = rows?.indexOf(row);
 
-	const nextPost = rows[rowIndex + 1];
-	const previousPost = rows[rowIndex - 1];
+	let previousPost = ['#', '', ''];
+	if (rowIndex !== 0) previousPost = rows[rowIndex - 1];
 
-	console.log(nextPost[0]);
+	let nextPost = ['#', '', ''];
+	if (rowIndex !== rows.length) nextPost = rows[rowIndex + 1];
+
+	console.log(nextPost);
 	console.log(previousPost);
 
 	let [title, content, date] = ['Erro', 'Fale com algum dev :(', '--/--/--'];
