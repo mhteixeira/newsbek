@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { google } from 'googleapis';
 
 import { getPlaiceholder } from 'plaiceholder';
+import { InferGetStaticPropsType } from 'next';
 
 export async function getStaticProps() {
 	const { base64 } = await getPlaiceholder('/images/logo-fundo-azul.svg');
