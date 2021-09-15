@@ -164,7 +164,9 @@ export default function Post({
 						<br />
 						{title}
 					</h1>
-					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>
+					<ReactMarkdown linkTarget="_blank" components={renderers}>
+						{content}
+					</ReactMarkdown>
 					<div></div>
 					<div className={styles.arrows}>
 						{previousPost && previousPost[0][0] !== '#' && (
