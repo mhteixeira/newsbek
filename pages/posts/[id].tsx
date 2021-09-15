@@ -78,8 +78,9 @@ export async function getStaticProps(context: any) {
 	if (row && rows && rowIndex > 0)
 		previousPost = [rows[rowIndex - 1][0], rows[rowIndex - 1][3]];
 
-	if (row && rows && rowIndex < rows?.length)
+	if (row && rows && rowIndex < rows.length - 1) {
 		nextPost = [rows[rowIndex + 1][0], rows[rowIndex + 1][3]];
+	}
 
 	let [title, content, date] = ['Erro', 'Fale com algum dev :(', '--/--/--'];
 
@@ -88,7 +89,7 @@ export async function getStaticProps(context: any) {
 		content = row[1];
 		date = row[2];
 	}
-
+	console.log(`\nBuilding slug: ${context.params.id}`);
 	return {
 		props: {
 			title,
@@ -119,9 +120,18 @@ export async function getStaticPaths() {
 	});
 	let rows = response.data.values;
 
-	const paths = rows?.map((row) => ({
-		params: { id: row[3] },
-	}));
+	rows?.map((row) => {
+		if (row[3][0] == '-') rows?.splice(rows?.indexOf(row), 1);
+	});
+
+	rows?.shift();
+
+	const paths = rows?.map((row) => {
+		console.log(row[3]);
+		return {
+			params: { id: row[3] },
+		};
+	});
 
 	return { paths, fallback: true };
 }
@@ -134,7 +144,6 @@ export default function Post({
 	previousPost,
 	nextPost,
 }: any) {
-	const router = useRouter();
 	const renderers = {
 		img: MyImage,
 	};
@@ -156,19 +165,17 @@ export default function Post({
 						{title}
 					</h1>
 					<ReactMarkdown components={renderers}>{content}</ReactMarkdown>
+					<div></div>
 					<div className={styles.arrows}>
-						{previousPost[0][0] === '#' ? (
-							<div></div>
-						) : (
+						{previousPost && previousPost[0][0] !== '#' && (
 							<Link href={'/posts/' + previousPost[1]}>
 								<a>
 									<div>←</div> {previousPost[0]}
 								</a>
 							</Link>
 						)}
-						{nextPost[0][0] === '#' ? (
-							<div></div>
-						) : (
+						{previousPost && previousPost[0][0] === '#' && <div></div>}
+						{nextPost && nextPost[0][0] !== '#' && (
 							<Link href={'/posts/' + nextPost[1]}>
 								<a>
 									<div>→</div>
