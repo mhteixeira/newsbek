@@ -144,6 +144,7 @@ export default function Post({
 	previousPost,
 	nextPost,
 }: any) {
+	const router = useRouter();
 	const renderers = {
 		img: MyImage,
 	};
