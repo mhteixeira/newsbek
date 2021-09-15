@@ -35,6 +35,7 @@ export async function getStaticProps() {
 			rows,
 			blurDataURL: base64,
 		},
+		fallback: true,
 		revalidate: 30,
 	};
 }
