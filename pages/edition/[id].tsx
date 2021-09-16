@@ -1,6 +1,5 @@
-// import { google } from "googleapis";
 import Head from "next/head";
-import styles from "./Post.module.css";
+import styles from "./Edition.module.css";
 import Header from "../../components/Header";
 import Link from "next/link";
 import Image from "next/image";
@@ -63,26 +62,33 @@ export async function getStaticProps(context: any) {
   rows?.shift();
 
   let rowIndex = -1;
-  const row = rows?.find((row) => {
-    if (row[3].slice(1) === id) rowIndex = rows.indexOf(row);
-    return row[3].slice(1) === id;
-  });
+  let editionRows: number[] = [];
+  let row = [["", "", ""]];
+  if (rows)
+    row = rows.filter((row) => {
+      if (row[3].slice(1) === id) rowIndex = rows.indexOf(row);
+      if (row[0][0] === "#") editionRows.push(rows.indexOf(row));
+      return row[3].slice(1) === id;
+    });
 
-  let [title, content, date] = ["Erro", "Fale com algum dev :(", "--/--/--"];
-
-  if (row) {
-    title = row[0];
-    content = row[1];
-    date = row[2];
+  let lastindex = 0;
+  let postsOnEdition = [];
+  if (rows) {
+    if (rowIndex === editionRows[editionRows.length - 1]) {
+      lastindex = rows.length;
+    } else {
+      lastindex = editionRows[editionRows.indexOf(rowIndex) + 1];
+    }
+    for (let i = rowIndex + 1; i < lastindex; i++) {
+      postsOnEdition.push(rows[i]);
+    }
   }
-
   console.log(row);
   console.log(`\nBuilding slug: ${context.params.id}`);
   return {
     props: {
-      title,
-      content,
-      date,
+      row,
+      postsOnEdition,
     },
     revalidate: 30,
   };
@@ -112,7 +118,6 @@ export async function getStaticPaths() {
   rows?.shift();
 
   const paths = rows?.map((row) => {
-    console.log(row[3]);
     return {
       params: { id: row[3] },
     };
@@ -121,7 +126,7 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-export default function Edition({ title, content, date }: any) {
+export default function Edition({ row, postsOnEdition }: any) {
   const router = useRouter();
   const renderers = {
     img: MyImage,
@@ -137,15 +142,34 @@ export default function Edition({ title, content, date }: any) {
       <Header />
       <main className={styles.mainContent}>
         <article>
-          <h1>
-            <span>{date}</span>
-            <br />
-            {title}
-          </h1>
-          <ReactMarkdown linkTarget="_blank" components={renderers}>
-            {content}
-          </ReactMarkdown>
-          <div></div>
+          {row ? (
+            <div className={styles.editionHeader}>
+              <h1>{row[0][0].slice(2)}</h1>
+              <ReactMarkdown linkTarget="_blank" components={renderers}>
+                {row[0][1]}
+              </ReactMarkdown>
+              <div></div>
+            </div>
+          ) : (
+            <></>
+          )}
+
+          {postsOnEdition &&
+            postsOnEdition.map((post: any) => {
+              return (
+                <>
+                  <h1>
+                    <span>{post[2]}</span>
+                    <br />
+                    {post[0]}
+                  </h1>
+                  <ReactMarkdown linkTarget="_blank" components={renderers}>
+                    {post[1]}
+                  </ReactMarkdown>
+                  <div className={styles.line}></div>
+                </>
+              );
+            })}
           <div className={styles.back}>
             <Link href="/">
               <a>Voltar ao menu</a>

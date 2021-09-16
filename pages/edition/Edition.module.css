@@ -183,3 +183,32 @@
   padding-left: 2rem;
   text-align: right;
 }
+
+.editionHeader h1 {
+  margin: 3rem 0;
+  text-align: center;
+  font-size: 5.6rem;
+}
+
+.editionHeader h1::after {
+  position: absolute;
+  bottom: -16px;
+  left: 10%;
+  width: 80%;
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.line {
+  height: 4px;
+  width: 80%;
+
+  margin-left: 10%;
+  margin-top: 4rem;
+
+  background-color: var(--color-primary);
+}
+
+.line:last-of-type {
+  display: none !important;
+}

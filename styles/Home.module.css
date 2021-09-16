@@ -125,6 +125,10 @@
   transition: ease 0.5s;
 }
 
+.editionHeader:hover > h2 > .arrowRight {
+  margin-left: 1.5rem;
+}
+
 .editionHeader:hover > h2 > i {
   border-color: #2659a7;
 }
