@@ -170,9 +170,8 @@ export default function Edition({ row, postsOnEdition }: any) {
                   __html: row[0].slice(2),
                 }}
               ></h1>
-              <ReactMarkdown linkTarget="_blank" components={renderersHeader}>
-                {row[1]}
-              </ReactMarkdown>
+              {/* <ReactMarkdown linkTarget="_blank" components={renderersHeader}> */}
+              <ReactMarkdown linkTarget="_blank">{row[1]}</ReactMarkdown>
               <div></div>
             </div>
           ) : (
@@ -188,9 +187,8 @@ export default function Edition({ row, postsOnEdition }: any) {
                     <br />
                     {post[0]}
                   </h1>
-                  <ReactMarkdown linkTarget="_blank" components={renderers}>
-                    {post[1]}
-                  </ReactMarkdown>
+                  {/* <ReactMarkdown linkTarget="_blank" components={renderers}> */}
+                  <ReactMarkdown linkTarget="_blank">{post[1]}</ReactMarkdown>
                   <div className={styles.line}></div>
                 </>
               );
