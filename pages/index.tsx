@@ -68,12 +68,15 @@ const Home: NextPage = ({ rows }: any) => {
             if (row[0][0] === "#")
               return (
                 <>
-                  <Link href="/">
-                    <a className={styles.editionHeader}>
-                      <h2>
-                        {row[0].slice(2)}
-                        <i className={styles.arrowRight}></i>
-                      </h2>
+                  <Link href={"/edition/" + row[3].slice(1)}>
+                    <a id={row[3].slice(1)} className={styles.editionHeader}>
+                      <h2
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            row[0].slice(2) +
+                            ` <i class=${styles.arrowRight}></i>`,
+                        }}
+                      ></h2>
                     </a>
                   </Link>
                 </>
