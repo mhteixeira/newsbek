@@ -33,8 +33,8 @@ const MyImage = (props: any) => {
       alt={"next/image"}
       src={props.src}
       layout="responsive"
-      placeholder="blur"
-      blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+      // placeholder="blur"
+      // blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
       width={600}
       height={400}
     />
@@ -159,8 +159,10 @@ export default function Post({
             <br />
             {title}
           </h1>
-          {/* <ReactMarkdown linkTarget="_blank" components={renderers}> */}
-          <ReactMarkdown linkTarget="_blank">{content}</ReactMarkdown>{" "}
+          <ReactMarkdown linkTarget="_blank" components={renderers}>
+            {/* <ReactMarkdown linkTarget="_blank"> */}
+            {content}
+          </ReactMarkdown>
           <div></div>
           <div className={styles.arrows}>
             {previousPost && previousPost[0][0] !== "#" && (
