@@ -1,7 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import styles from "./Header.module.css";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+
+import logo from "../../public/images/logo-fundo-azul.svg";
 
 function Header() {
   const [isShrunk, setShrunk] = useState(false);
@@ -74,10 +77,16 @@ function Header() {
           <Link href="/">
             <a>
               <div className={styles.mobileLogoAndText}>
-                <img
-                  src="/images/logo-fundo-azul.svg"
-                  alt="Rateria"
-                  style={{ width: 60, height: 60 }}
+                {/* data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAPUlEQVQImWP4/1+6rojBwYHh0wUGBnNjBgsdA1tHLy0lBgZTIwY+QQUGBgUbK16G//+lJzczmBgx/LjPAAB6vQ4Tu7pSTAAAAABJRU5ErkJggg== */}
+                <Image
+                  src={logo}
+                  alt="Logo da Rateria"
+                  width={160}
+                  height={160}
+                  quality={100}
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAPUlEQVQImWP4/1+6rojBwYHh0wUGBnNjBgsdA1tHLy0lBgZTIwY+QQUGBgUbK16G//+lJzczmBgx/LjPAAB6vQ4Tu7pSTAAAAABJRU5ErkJggg=="
+                  className={isShrunk ? styles.collapsed : styles.image}
                 />
                 <h3 className={styles.rateriaMobile}>NEWSBEK</h3>
               </div>
