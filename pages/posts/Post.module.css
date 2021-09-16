@@ -138,12 +138,6 @@
   font-size: 2rem;
 }
 
-@media (max-width: 768px) {
-  .mainContent img {
-    height: 200px;
-  }
-}
-
 .back {
   display: flex;
   justify-content: center;

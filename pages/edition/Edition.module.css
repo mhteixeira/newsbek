@@ -137,12 +137,6 @@
   font-size: 2rem;
 }
 
-@media (max-width: 768px) {
-  .mainContent img {
-    height: 200px;
-  }
-}
-
 .back {
   display: flex;
   justify-content: center;
@@ -191,6 +185,7 @@
 
 .editionHeader img {
   border-radius: 8px;
+  height: 200px;
 }
 
 .editionHeader h1::after {
