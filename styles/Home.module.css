@@ -36,10 +36,6 @@
   width: 100%;
 }
 
-.mainContent h2:first-of-type {
-  margin-top: 2rem;
-}
-
 .mainContent h3 {
   font-family: Montserrat, sans-serif;
   font-size: 2.4rem;
@@ -71,6 +67,9 @@
   width: 30%;
   background-color: var(--color-primary);
   border: 3px solid var(--color-primary);
+
+  transition: cubic-bezier(0.86, 0, 0.07, 1) 0.5s;
+  transform-origin: left;
 }
 
 .mainContent h2::after {
@@ -79,10 +78,53 @@
   border: 2px solid var(--color-primary);
 }
 
+.editionHeader {
+  text-decoration: none !important;
+  display: inline;
+}
+
+.editionHeader h2 {
+  color: var(--color-black);
+  transition: ease 0.5s;
+}
+
+.editionHeader h2 span {
+  font-family: Montserrat;
+  font-size: 3.4rem;
+  margin-top: -1rem;
+}
+
+.editionHeader:hover h2 {
+  color: #2659a7;
+}
+
+.editionHeader:hover > h2::after {
+  /* width: 200px; */
+  border-color: #2659a7;
+  background: #2659a7;
+  transform: scaleX(3);
+}
+
 .mainContent p {
   font-family: Montserrat, sans-serif;
   font-size: 1.6rem;
   width: 100%;
+}
+
+.arrowRight {
+  border: solid black;
+  border-width: 0 4px 4px 0;
+  display: inline-block;
+  padding: 6px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-left: 1.5rem;
+  margin-bottom: 0.25rem;
+  transition: ease 0.5s;
+}
+
+.editionHeader:hover > h2 > i {
+  border-color: #2659a7;
 }
 
 .mainContent img {
@@ -149,6 +191,8 @@
   justify-content: center;
 
   margin: 32px 0 32px;
+
+  margin-bottom: -2rem;
 }
 
 .searchBar input {

@@ -65,7 +65,19 @@ const Home: NextPage = ({ rows }: any) => {
             if (searchText != "") {
               if (title.indexOf(filter) == -1) return <></>;
             }
-            if (row[0][0] === "#") return <h2>{row[0].slice(2)}</h2>;
+            if (row[0][0] === "#")
+              return (
+                <>
+                  <Link href="/">
+                    <a className={styles.editionHeader}>
+                      <h2>
+                        {row[0].slice(2)}
+                        <i className={styles.arrowRight}></i>
+                      </h2>
+                    </a>
+                  </Link>
+                </>
+              );
 
             const adress = "/posts/" + row[3];
             return (

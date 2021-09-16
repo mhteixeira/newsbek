@@ -94,7 +94,6 @@ function Header() {
                   blurDataURL={
                     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAPUlEQVQImWP4/1+6rojBwYHh0wUGBnNjBgsdA1tHLy0lBgZTIwY+QQUGBgUbK16G//+lJzczmBgx/LjPAAB6vQ4Tu7pSTAAAAABJRU5ErkJggg=="
                   }
-                  className={isShrunk ? styles.collapsed : styles.image}
                 />
                 <h3 className={styles.rateriaMobile}>NEWSBEK</h3>
               </div>
