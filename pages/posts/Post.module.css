@@ -143,3 +143,43 @@
     height: 200px;
   }
 }
+
+.back {
+  display: flex;
+  justify-content: center;
+}
+
+.back a {
+  margin-top: 2rem;
+  height: 48px;
+  width: 160px;
+  border-radius: 8px;
+  border-width: 2px;
+  border-color: var(--color-primary);
+  border-style: solid;
+  background-color: var(--color-primary);
+  font-size: 1.6rem;
+  color: var(--color-white);
+  text-decoration: none;
+
+  text-align: center;
+  line-height: 44px;
+}
+
+.arrows {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.arrows a {
+  width: fit-content;
+  text-decoration: none !important;
+  font-size: 1.8rem;
+}
+
+.arrows a:nth-child(2) {
+  padding-left: 2rem;
+  text-align: right;
+}

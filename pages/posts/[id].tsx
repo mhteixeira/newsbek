@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 
 export async function getStaticProps(context: any) {
   const id = context.params.id;
-  console.log(id);
   const target = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
   const jwt = new google.auth.JWT(
     process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
@@ -29,7 +28,22 @@ export async function getStaticProps(context: any) {
   const rows = response.data.values;
   rows?.shift();
 
-  const row = rows?.find((row) => row[3] === id);
+  let rowIndex = -1;
+  const row = rows?.find((row) => {
+    if (row[3] === id) rowIndex = rows.indexOf(row);
+    return row[3] === id;
+  });
+
+  let previousPost = ["#", "/"];
+  let nextPost = ["#", "/"];
+
+  if (row && rows && rowIndex > 0)
+    previousPost = [rows[rowIndex - 1][0], rows[rowIndex - 1][3]];
+
+  if (row && rows && rowIndex < rows.length - 1) {
+    nextPost = [rows[rowIndex + 1][0], rows[rowIndex + 1][3]];
+  }
+
   let [title, content, date] = ["Erro", "Fale com algum dev :(", "--/--/--"];
 
   if (row) {
@@ -37,12 +51,14 @@ export async function getStaticProps(context: any) {
     content = row[1];
     date = row[2];
   }
-
+  console.log(`\nBuilding slug: ${context.params.id}`);
   return {
     props: {
       title,
       content,
       date,
+      previousPost,
+      nextPost,
     },
     revalidate: 30,
   };
@@ -63,22 +79,31 @@ export async function getStaticPaths() {
     spreadsheetId: process.env.SHEET_ID,
     range,
   });
-  const rows = response.data.values;
+  let rows = response.data.values;
 
-  // Get the paths we want to pre-render based on posts
-  const paths = rows?.map((row) => ({
-    params: { id: row[3] },
-  }));
+  rows?.map((row) => {
+    if (row[3][0] == "-") rows?.splice(rows?.indexOf(row), 1);
+  });
 
-  // console.log(paths);
+  rows?.shift();
 
-  // We'll pre-render only these paths at build time.
-  // { fallback: blocking } will server-render pages
-  // on-demand if the path doesn't exist.
+  const paths = rows?.map((row) => {
+    console.log(row[3]);
+    return {
+      params: { id: row[3] },
+    };
+  });
+
   return { paths, fallback: true };
 }
 
-export default function Post({ title, content, date }: any) {
+export default function Post({
+  title,
+  content,
+  date,
+  previousPost,
+  nextPost,
+}: any) {
   const router = useRouter();
 
   return (
@@ -98,9 +123,30 @@ export default function Post({ title, content, date }: any) {
             {title}
           </h1>
           <ReactMarkdown>{content}</ReactMarkdown>
-          <Link href="/">
-            <a className={styles.back}> ← Voltar à página inicial</a>
-          </Link>
+          <div></div>
+          <div className={styles.arrows}>
+            {previousPost && previousPost[0][0] !== "#" && (
+              <Link href={"/posts/" + previousPost[1]}>
+                <a>
+                  <div>←</div> {previousPost[0]}
+                </a>
+              </Link>
+            )}
+            {previousPost && previousPost[0][0] === "#" && <div></div>}
+            {nextPost && nextPost[0][0] !== "#" && (
+              <Link href={"/posts/" + nextPost[1]}>
+                <a>
+                  <div>→</div>
+                  {nextPost[0]}
+                </a>
+              </Link>
+            )}
+          </div>
+          <div className={styles.back}>
+            <Link href="/">
+              <a>Voltar ao menu</a>
+            </Link>
+          </div>
         </article>
       </main>
     </>
