@@ -19,7 +19,6 @@
   font-size: 4rem;
   margin-top: 0;
   margin-bottom: 4rem;
-  padding-top: 3rem;
   position: relative;
 }
 
@@ -185,9 +184,13 @@
 }
 
 .editionHeader h1 {
-  margin: 3rem 0;
+  margin: 3rem 0 5rem;
   text-align: center;
   font-size: 5.6rem;
+}
+
+.editionHeader img {
+  border-radius: 8px;
 }
 
 .editionHeader h1::after {
@@ -205,6 +208,7 @@
 
   margin-left: 10%;
   margin-top: 4rem;
+  margin-bottom: 2rem;
 
   background-color: var(--color-primary);
 }

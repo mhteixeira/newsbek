@@ -85,7 +85,9 @@ export async function getStaticProps(context: any) {
     content = row[1];
     date = row[2];
   }
-  console.log(`\nBuilding slug: ${context.params.id}`);
+
+  console.log(`\nBuilding post: ${context.params.id}`);
+
   return {
     props: {
       title,
@@ -122,7 +124,6 @@ export async function getStaticPaths() {
   rows?.shift();
 
   const paths = rows?.map((row) => {
-    console.log(row[3]);
     return {
       params: { id: row[3] },
     };

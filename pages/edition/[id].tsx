@@ -35,7 +35,7 @@ const MyImage = (props: any) => {
       placeholder="blur"
       blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
       width={600}
-      height={400}
+      height={200}
     />
   );
 };
@@ -63,13 +63,17 @@ export async function getStaticProps(context: any) {
 
   let rowIndex = -1;
   let editionRows: number[] = [];
+
   let row = [["", "", ""]];
-  if (rows)
-    row = rows.filter((row) => {
-      if (row[3].slice(1) === id) rowIndex = rows.indexOf(row);
-      if (row[0][0] === "#") editionRows.push(rows.indexOf(row));
-      return row[3].slice(1) === id;
-    });
+
+  rows?.map((row) => {
+    if (row[3].slice(1) === id) {
+      rowIndex = rows.indexOf(row);
+    }
+    if (row[0][0] === "#") editionRows.push(rows.indexOf(row));
+  });
+
+  if (rows) row = rows[rowIndex];
 
   let lastindex = 0;
   let postsOnEdition = [];
@@ -83,8 +87,8 @@ export async function getStaticProps(context: any) {
       postsOnEdition.push(rows[i]);
     }
   }
-  console.log(row);
-  console.log(`\nBuilding slug: ${context.params.id}`);
+  console.log(`\nBuilding edition: ${context.params.id}`);
+  // console.log(row);
   return {
     props: {
       row,
@@ -109,17 +113,16 @@ export async function getStaticPaths() {
     spreadsheetId: process.env.SHEET_ID,
     range,
   });
-  let rows = response.data.values;
 
+  let rows = response.data.values;
+  let editions: string[][] = [];
   rows?.map((row) => {
-    if (row[3][0] !== "-") rows?.splice(rows?.indexOf(row), 1);
+    if (row[0][0] === "#") editions.push(row);
   });
 
-  rows?.shift();
-
-  const paths = rows?.map((row) => {
+  const paths = editions?.map((row) => {
     return {
-      params: { id: row[3] },
+      params: { id: row[3].slice(1) },
     };
   });
 
@@ -131,6 +134,7 @@ export default function Edition({ row, postsOnEdition }: any) {
   const renderers = {
     img: MyImage,
   };
+  row && console.log("Edition data: " + row[0]);
   return (
     <>
       <Head>
@@ -144,9 +148,13 @@ export default function Edition({ row, postsOnEdition }: any) {
         <article>
           {row ? (
             <div className={styles.editionHeader}>
-              <h1>{row[0][0].slice(2)}</h1>
+              <h1
+                dangerouslySetInnerHTML={{
+                  __html: row[0].slice(2),
+                }}
+              ></h1>
               <ReactMarkdown linkTarget="_blank" components={renderers}>
-                {row[0][1]}
+                {row[1]}
               </ReactMarkdown>
               <div></div>
             </div>
