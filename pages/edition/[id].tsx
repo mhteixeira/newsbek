@@ -35,6 +35,20 @@ const MyImage = (props: any) => {
       placeholder="blur"
       blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
       width={600}
+      height={400}
+    />
+  );
+};
+
+const MyImageHeader = (props: any) => {
+  return (
+    <Image
+      alt={"next/image"}
+      src={props.src}
+      layout="responsive"
+      placeholder="blur"
+      blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+      width={600}
       height={200}
     />
   );
@@ -134,6 +148,9 @@ export default function Edition({ row, postsOnEdition }: any) {
   const renderers = {
     img: MyImage,
   };
+  const renderersHeader = {
+    img: MyImageHeader,
+  };
   row && console.log("Edition data: " + row[0]);
   return (
     <>
@@ -153,7 +170,7 @@ export default function Edition({ row, postsOnEdition }: any) {
                   __html: row[0].slice(2),
                 }}
               ></h1>
-              <ReactMarkdown linkTarget="_blank" components={renderers}>
+              <ReactMarkdown linkTarget="_blank" components={renderersHeader}>
                 {row[1]}
               </ReactMarkdown>
               <div></div>
