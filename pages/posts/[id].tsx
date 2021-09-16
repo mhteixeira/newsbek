@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // import { google } from "googleapis";
 import Head from "next/head";
 import styles from "./Post.module.css";
@@ -7,6 +8,7 @@ import Image from "next/image";
 import { google } from "googleapis";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const shimmer = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -28,16 +30,24 @@ const toBase64 = (str: string) =>
     : window.btoa(str);
 
 const MyImage = (props: any) => {
+  const [loaded, setLoaded] = useState(false);
+
   return (
-    <Image
-      alt={"next/image"}
-      src={props.src}
-      layout="responsive"
-      // placeholder="blur"
-      // blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
-      width={600}
-      height={400}
-    />
+    <div>
+      {!loaded ? (
+        <img
+          alt="Imagem"
+          src={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+        />
+      ) : null}
+      <img
+        alt="Imagem"
+        src={props.src}
+        style={!loaded ? { display: "none" } : {}}
+        onLoad={() => setLoaded(true)}
+        loading="lazy"
+      />
+    </div>
   );
 };
 

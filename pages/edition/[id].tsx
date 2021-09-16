@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
 import styles from "./Edition.module.css";
 import Header from "../../components/Header";
@@ -6,6 +7,7 @@ import Image from "next/image";
 import { google } from "googleapis";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const shimmer = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -27,30 +29,24 @@ const toBase64 = (str: string) =>
     : window.btoa(str);
 
 const MyImage = (props: any) => {
-  return (
-    <Image
-      alt={"next/image"}
-      src={props.src}
-      layout="responsive"
-      placeholder="blur"
-      blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
-      width={600}
-      height={400}
-    />
-  );
-};
+  const [loaded, setLoaded] = useState(false);
 
-const MyImageHeader = (props: any) => {
   return (
-    <Image
-      alt={"next/image"}
-      src={props.src}
-      layout="responsive"
-      placeholder="blur"
-      blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
-      width={600}
-      height={200}
-    />
+    <div>
+      {!loaded ? (
+        <img
+          alt="Imagem"
+          src={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+        />
+      ) : null}
+      <img
+        alt="Imagem"
+        src={props.src}
+        style={!loaded ? { display: "none" } : {}}
+        onLoad={() => setLoaded(true)}
+        loading="lazy"
+      />
+    </div>
   );
 };
 
@@ -148,9 +144,7 @@ export default function Edition({ row, postsOnEdition }: any) {
   const renderers = {
     img: MyImage,
   };
-  const renderersHeader = {
-    img: MyImageHeader,
-  };
+
   row && console.log("Edition data: " + row[0]);
   return (
     <>
@@ -170,8 +164,9 @@ export default function Edition({ row, postsOnEdition }: any) {
                   __html: row[0].slice(2),
                 }}
               ></h1>
-              {/* <ReactMarkdown linkTarget="_blank" components={renderersHeader}> */}
-              <ReactMarkdown linkTarget="_blank">{row[1]}</ReactMarkdown>
+              <ReactMarkdown linkTarget="_blank" components={renderers}>
+                {row[1]}
+              </ReactMarkdown>
               <div></div>
             </div>
           ) : (
@@ -187,8 +182,9 @@ export default function Edition({ row, postsOnEdition }: any) {
                     <br />
                     {post[0]}
                   </h1>
-                  {/* <ReactMarkdown linkTarget="_blank" components={renderers}> */}
-                  <ReactMarkdown linkTarget="_blank">{post[1]}</ReactMarkdown>
+                  <ReactMarkdown linkTarget="_blank" components={renderers}>
+                    {post[1]}
+                  </ReactMarkdown>
                   <div className={styles.line}></div>
                 </>
               );
