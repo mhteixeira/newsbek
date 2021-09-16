@@ -14,7 +14,6 @@ const MyImage = (props: any) => {
       alt={"next/image"}
       src={props.src}
       layout="responsive"
-      placeholder="blur"
       width={600}
       height={400}
     />
