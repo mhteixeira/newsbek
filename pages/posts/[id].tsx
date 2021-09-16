@@ -3,9 +3,23 @@ import Head from "next/head";
 import styles from "./Post.module.css";
 import Header from "../../components/Header";
 import Link from "next/link";
+import Image from "next/image";
 import { google } from "googleapis";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/router";
+
+const MyImage = (props: any) => {
+  return (
+    <Image
+      alt={"next/image"}
+      src={props.src}
+      layout="responsive"
+      placeholder="blur"
+      width={600}
+      height={400}
+    />
+  );
+};
 
 export async function getStaticProps(context: any) {
   const id = context.params.id;
@@ -105,7 +119,9 @@ export default function Post({
   nextPost,
 }: any) {
   const router = useRouter();
-
+  const renderers = {
+    img: MyImage,
+  };
   return (
     <>
       <Head>
@@ -122,7 +138,9 @@ export default function Post({
             <br />
             {title}
           </h1>
-          <ReactMarkdown>{content}</ReactMarkdown>
+          <ReactMarkdown linkTarget="_blank" components={renderers}>
+            {content}
+          </ReactMarkdown>{" "}
           <div></div>
           <div className={styles.arrows}>
             {previousPost && previousPost[0][0] !== "#" && (
