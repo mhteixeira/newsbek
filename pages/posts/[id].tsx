@@ -7,6 +7,7 @@ import Image from "next/image";
 import { google } from "googleapis";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/router";
+import AltHeader from "../../components/AltHeader";
 
 const shimmer = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -151,7 +152,7 @@ export default function Post({
         <link rel="icon" href="/images/logo-fundo-azul.svg" />
       </Head>
 
-      <Header />
+      <AltHeader currentPage={"Home"} />
       <main className={styles.mainContent}>
         <article>
           <h1>
