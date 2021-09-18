@@ -3,6 +3,7 @@ import Head from "next/head";
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Header from "../components/Header";
+import AltHeader from "../components/AltHeader";
 import Link from "next/link";
 import { getRows } from "../libs/getDataFromSheets";
 import { google } from "googleapis";
@@ -45,7 +46,7 @@ const Home: NextPage = ({ rows }: any) => {
         <meta name="description" content="A newsletter da Rateria!" />
         <link rel="icon" href="/images/logo-fundo-azul.svg" />
       </Head>
-      <Header />
+      <AltHeader currentPage={"Home"} />
       <main className={styles.mainContent}>
         <article>
           <div className={styles.searchBar}>
