@@ -38,7 +38,7 @@ export async function getStaticProps() {
 const Home: NextPage = ({ rows }: any) => {
   const [searchText, setSearchText] = useState("");
 
-  const [filterInterview, setFilterInterview] = useState(true);
+  const [filterInterview, setFilterInterview] = useState(false);
   const [filterReports, setFilterReports] = useState(false);
   const [filterProjects, setFilterProjects] = useState(false);
 
