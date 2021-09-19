@@ -198,7 +198,7 @@
 
 .searchBarMobile {
   width: 80%;
-  display: flex;
+  display: none;
   justify-content: center;
 
   margin: 32px 0 32px;
@@ -207,10 +207,12 @@
 }
 
 .filtersMobile {
-  display: flex;
-  justify-content: space-around;
+  display: none;
+  justify-content: space-between;
 
-  margin-top: 3rem;
+  margin: 3rem 5rem 0;
+
+  flex-wrap: wrap;
 }
 
 .filtersMobile label {
@@ -285,10 +287,6 @@
 }
 
 @media (min-width: 768px) {
-  .searchBarMobile,
-  .filtersMobile {
-    display: none;
-  }
 }
 
 @media (max-width: 1024px) {
@@ -298,6 +296,11 @@
 }
 
 @media (max-width: 768px) {
+  .searchBarMobile,
+  .filtersMobile {
+    display: flex;
+  }
+
   .separator,
   .sideOptions {
     display: none;
@@ -305,6 +308,10 @@
 
   .mainContent article:first-child h2 {
     margin-top: 2rem;
+  }
+
+  .mainContent article {
+    min-width: 0;
   }
 }
 
