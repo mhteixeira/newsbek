@@ -14,7 +14,7 @@ function Sidebar(props: any) {
         </a>
       </Link>
       <br />
-      <Link href="/sobre">
+      <Link href="/ratinhos">
         <a className="menu-item">
           <FaUsers size={28} />
           &ensp;RATINHOS

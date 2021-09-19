@@ -85,7 +85,7 @@ function Header({ currentPage }: HeaderProps) {
             <Link href="/">
               <a className={currentPage === "Home" ? styles.foco : ""}>News</a>
             </Link>
-            <Link href="/galeria-de-honra">
+            <Link href="/ratinhos">
               <a className={currentPage === "About" ? styles.foco : ""}>
                 Ratinhos
               </a>
