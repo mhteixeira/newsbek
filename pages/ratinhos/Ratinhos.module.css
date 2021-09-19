@@ -1,0 +1,103 @@
+.mainContent {
+  background-color: var(--color-white);
+  min-height: calc(100vh - 130px);
+  margin-top: 1rem;
+
+  display: flex;
+  justify-content: center;
+
+  padding-bottom: 80px;
+}
+
+.mainContent article {
+  width: 600px;
+  margin: 0 2.5rem;
+}
+
+.mainContent h1 {
+  font-family: Montserrat, sans-serif;
+  font-size: 4rem;
+  margin-top: 0;
+  margin-bottom: 4rem;
+  padding-top: 3rem;
+  position: relative;
+}
+
+.mainContent h2 {
+  font-family: Montserrat, sans-serif;
+  font-size: 3.2rem;
+  margin-top: 0;
+  padding-top: 2rem;
+
+  position: relative;
+
+  width: 100%;
+}
+
+.mainContent h3 {
+  font-family: Montserrat, sans-serif;
+  font-style: italic;
+  font-size: 2.4rem;
+  font-weight: 500;
+  margin-top: 0;
+  padding-top: 1rem;
+
+  position: relative;
+
+  width: 100%;
+}
+
+.mainContent h1 span {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.mainContent img {
+  padding: 2rem;
+  margin-left: -2rem;
+}
+
+.mainContent p {
+  line-height: 150%;
+  text-align: justify;
+  text-indent: 2rem;
+  justify-content: center;
+}
+
+.mainContent h1::after,
+.mainContent h2::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  width: 20%;
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.mainContent h2::after {
+  width: 10%;
+  bottom: -10px;
+  border: 2px solid var(--color-primary);
+}
+
+.mainContent p,
+.mainContent li {
+  font-family: Montserrat, sans-serif;
+  font-size: 1.6rem;
+  width: 100%;
+}
+
+.mainContent img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.mainContent a {
+  text-decoration: underline;
+  color: #179ae6;
+  text-transform: none;
+  font-family: Montserrat, sans-serif;
+}
