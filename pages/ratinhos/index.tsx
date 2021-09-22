@@ -3,6 +3,7 @@ import styles from "./Ratinhos.module.css";
 import Image from "next/image";
 import { google } from "googleapis";
 import AltHeader from "../../components/AltHeader";
+import RatinhoCard from "../../components/RatinhoCard";
 
 const shimmer = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -78,12 +79,12 @@ export default function Ratinhos({ rows }: any) {
       <AltHeader currentPage={"Ratinhos"} />
       <main className={styles.mainContent}>
         <article>
-          <h1>Ratinhos</h1>
-          <div>
-            <div className={styles.card}>
-              <h3>Marisa</h3>
-              <h4>2015</h4>
-            </div>
+          <h1>2015</h1>
+          <div className={styles.cardsContainer}>
+            <RatinhoCard />
+            <RatinhoCard />
+            <RatinhoCard />
+            <RatinhoCard />
           </div>
           <div className={styles.arrows}></div>
           <div className={styles.back}></div>
