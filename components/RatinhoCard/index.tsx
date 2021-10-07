@@ -13,8 +13,6 @@ interface RatinhoCardProps {
 }
 
 function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
-  const frase = "frase do scubi caso ele tivesse uma mas ele não tá na galeria";
-
   return (
     <div className={styles.card}>
       <div className={styles.front}>
