@@ -261,14 +261,16 @@
 
 .separator {
   margin-top: 5rem;
-  margin-left: 15rem;
+  margin-left: 7.5rem;
 
   width: 3px;
   height: 340px;
   background-color: rgb(153, 153, 153);
 
   position: sticky;
-  top: 150px;
+  top: 130px;
+  transform-origin: top;
+  transform: scale(0.7);
 }
 
 .sideOptions {
@@ -278,6 +280,9 @@
 
   position: sticky;
   top: 150px;
+
+  transform-origin: top left;
+  transform: scale(0.7);
 }
 
 .sideOptions h3 {

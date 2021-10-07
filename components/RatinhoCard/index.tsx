@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Badge from "../Badge";
 
+const placeholderPhoto = "/images/Ratinho.svg";
 interface RatinhoCardProps {
   name: string;
   year: string;
@@ -17,7 +18,10 @@ function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
   return (
     <div className={styles.card}>
       <div className={styles.front}>
-        <img src={profilePicSrc} alt="foto"></img>
+        <img
+          src={profilePicSrc === "Sem foto" ? placeholderPhoto : profilePicSrc}
+          alt="foto"
+        ></img>
         <div className={styles.badges}>
           <Badge id={badges[0]} />
           <Badge id={badges[1]} />

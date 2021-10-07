@@ -17,9 +17,12 @@
 
 .mainContent h1 {
   font-family: Montserrat, sans-serif;
-  font-size: 6.4rem;
+  font-size: 4.8rem;
+  width: 100%;
+  text-align: center;
+
   margin-top: 0;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
   padding-top: 3rem;
   position: relative;
 }
@@ -70,9 +73,9 @@
   content: " ";
   display: block;
   position: absolute;
-  bottom: -16px;
-  left: 0;
-  width: 10%;
+  bottom: -8px;
+  left: calc(50% - 50px);
+  width: 100px;
   background-color: var(--color-primary);
   border: 2px solid var(--color-primary);
 }
@@ -142,7 +145,6 @@
 
 .card img {
   border-radius: 0.8rem;
-  border-width: 3px;
   border-style: solid;
   border-color: var(--color-primary);
   border-bottom-left-radius: 0;

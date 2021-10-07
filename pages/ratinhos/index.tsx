@@ -59,18 +59,30 @@ export async function getStaticProps() {
   rows?.shift();
   rows?.shift();
 
+  let years: string[] = [];
+  rows?.map((row) => {
+    if (years.indexOf(row[1]) === -1) years.push(row[1]);
+  });
+
+  let rowsByYear = {};
+  years.map((year) => {
+    const yearRow = rows?.filter((row) => row[1] == year);
+    let pair = { [year]: yearRow };
+
+    rowsByYear = { ...rowsByYear, ...pair };
+  });
+
   return {
-    props: { rows },
+    props: { rowsByYear, years },
     revalidate: 30,
   };
 }
 
-export default function Ratinhos({ rows }: any) {
+export default function Ratinhos({ rowsByYear, years }: any) {
   const renderers = {
     img: MyImage,
   };
 
-  console.log(rows[0].slice(9, 14));
   return (
     <>
       <Head>
@@ -82,24 +94,34 @@ export default function Ratinhos({ rows }: any) {
       <AltHeader currentPage={"Ratinhos"} />
       <main className={styles.mainContent}>
         <article>
-          {/* <h1>2015</h1> */}
-          <div className={styles.cardsContainer}>
-            {rows.map((row: any) => {
-              return (
-                <RatinhoCard
-                  key={row}
-                  name={row[0]}
-                  year={row[1]}
-                  profilePicSrc={"https://drive.google.com/uc?id=" + row[2]}
-                  badges={row
-                    .slice(9, 15)
-                    .sort((a: string, b: string) =>
-                      a > b ? 1 : b > a ? -1 : 0
-                    )}
-                />
-              );
-            })}
-          </div>
+          {years.map((year: string) => {
+            return (
+              <>
+                <h1 key={year}>{year}</h1>
+                <div className={styles.cardsContainer}>
+                  {rowsByYear[year].map((row: any) => {
+                    return (
+                      <RatinhoCard
+                        key={row}
+                        name={row[0]}
+                        year={row[1]}
+                        profilePicSrc={
+                          row[2] === "Sem foto"
+                            ? "Sem foto"
+                            : "https://drive.google.com/uc?id=" + row[2]
+                        }
+                        badges={row
+                          .slice(9, 15)
+                          .sort((a: string, b: string) =>
+                            a > b ? 1 : b > a ? -1 : 0
+                          )}
+                      />
+                    );
+                  })}
+                </div>
+              </>
+            );
+          })}
           <div className={styles.arrows}></div>
           <div className={styles.back}></div>
         </article>
