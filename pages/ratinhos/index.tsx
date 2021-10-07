@@ -57,6 +57,7 @@ export async function getStaticProps() {
   // @ts-ignore
   const rows = response.data.values;
   rows?.shift();
+  rows?.shift();
 
   return {
     props: { rows },
@@ -68,6 +69,8 @@ export default function Ratinhos({ rows }: any) {
   const renderers = {
     img: MyImage,
   };
+
+  console.log(rows[0].slice(9, 14));
   return (
     <>
       <Head>
@@ -79,12 +82,23 @@ export default function Ratinhos({ rows }: any) {
       <AltHeader currentPage={"Ratinhos"} />
       <main className={styles.mainContent}>
         <article>
-          <h1>2015</h1>
+          {/* <h1>2015</h1> */}
           <div className={styles.cardsContainer}>
-            <RatinhoCard />
-            <RatinhoCard />
-            <RatinhoCard />
-            <RatinhoCard />
+            {rows.map((row: any) => {
+              return (
+                <RatinhoCard
+                  key={row}
+                  name={row[0]}
+                  year={row[1]}
+                  profilePicSrc={"https://drive.google.com/uc?id=" + row[2]}
+                  badges={row
+                    .slice(9, 15)
+                    .sort((a: string, b: string) =>
+                      a > b ? 1 : b > a ? -1 : 0
+                    )}
+                />
+              );
+            })}
           </div>
           <div className={styles.arrows}></div>
           <div className={styles.back}></div>

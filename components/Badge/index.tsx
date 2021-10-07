@@ -33,20 +33,39 @@ const badgeTesouraria = "/badges/Tesouraria.svg";
 const badgeXequere = "/badges/Xequerê.svg";
 
 interface BadgeProps {
-  id: number;
+  id: string;
 }
+const badgesID = {
+  0: [badgeCaixa, "Caixa"],
+  1: [badgeMestre, "Mestre"],
+  2: [badgeChocalho, "Chocalho"],
+  3: [badgeAgogo, "Agogô"],
+  4: [badgeTamborim, "Tamborim"],
+  5: [badgeCaixa, "Caixa"],
+  6: [badgeRipa, "Ripa"],
+  7: [badgeSurdo, "Surdo"],
+  8: [badgeXequere, "Xequerê"],
+  9: [badgeDjembe, "Djembê"],
+  10: [badgeDiretoriaDeChocalho, "Diretoria de Chocalho"],
+  11: [badgeDiretoriaDeAgogo, "Diretoria de Agogô"],
+  12: [badgeDiretoriaDeTamborim, "Diretoria de Tamborim"],
+  13: [badgeDiretoriaDeCaixa, "Diretoria de Caixa"],
+  14: [badgeDiretoriaDeRipa, "Diretoria de Ripa"],
+  15: [badgeDiretoriaDeSurdo, "Diretoria de Surdo"],
+  16: [badgeArte, "Arte"],
+  17: [badgeCGL, "CGL"],
+  18: [badgeComunicacao, "Comunicação"],
+  19: [badgeCriacao, "Driação"],
+  20: [badgeDSF, "DSF"],
+  21: [badgePalco, "Palco"],
+  22: [badgePresidencia, "Presidência"],
+  23: [badgeRatoDoAno, "Rato do Ano"],
+  24: [badgeTesouraria, "Tesouraria"],
+};
 
 function Badge({ id }: BadgeProps) {
-  const badgesID = {
-    1: [badgeAgogo, "Agogô"],
-    2: [badgeArte, "Diretor de Arte"],
-    3: [badgeCriacao, "Driação"],
-    4: [badgeRipa, "Ripa"],
-    5: [badgeComunicacao, "Comunicação"],
-    10: [badgeXequere, "Xequerê"],
-  };
+  if (id === "0") return <></>;
 
-  const kew = Object.keys(badgesID)[0];
   return (
     <div className={styles.badge}>
       <div className={styles.tooltip}>{badgesID[id][1]}</div>

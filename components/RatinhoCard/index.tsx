@@ -4,24 +4,32 @@ import Link from "next/link";
 import Image from "next/image";
 import Badge from "../Badge";
 
-function RatinhoCard() {
+interface RatinhoCardProps {
+  name: string;
+  year: string;
+  profilePicSrc: string;
+  badges: string[];
+}
+
+function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
   const frase = "frase do scubi caso ele tivesse uma mas ele não tá na galeria";
 
   return (
     <div className={styles.card}>
       <div className={styles.front}>
-        <img
-          src="https://drive.google.com/uc?id=1QCtpO9BI_M9gQn0g-DnrDoF8J6imc_P9"
-          alt="foto"
-        ></img>
+        <img src={profilePicSrc} alt="foto"></img>
         <div className={styles.badges}>
-          <Badge id={2} />
-          <Badge id={5} />
-          <Badge id={3} />
-          <Badge id={4} />
+          <Badge id={badges[0]} />
+          <Badge id={badges[1]} />
+          <Badge id={badges[2]} />
+          <Badge id={badges[3]} />
+          <Badge id={badges[4]} />
+          <Badge id={badges[5]} />
         </div>
       </div>
-      <h3>Marisa (2015)</h3>
+      <h3>
+        {name} ({year})
+      </h3>
       {/* <p>&ldquo;{frase}&rdquo;</p> */}
     </div>
   );
