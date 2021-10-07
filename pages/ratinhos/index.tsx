@@ -4,6 +4,7 @@ import Image from "next/image";
 import { google } from "googleapis";
 import AltHeader from "../../components/AltHeader";
 import RatinhoCard from "../../components/RatinhoCard";
+import React, { useState } from "react";
 
 const shimmer = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -79,6 +80,15 @@ export async function getStaticProps() {
 }
 
 export default function Ratinhos({ rowsByYear, years }: any) {
+  const [searchText, setSearchText] = useState("");
+
+  const [filterChocalho, setFilterChocalho] = useState(false);
+  const [filterAgogo, setFilterAgogo] = useState(false);
+  const [filterTamborim, setFilterTamborim] = useState(false);
+  const [filterCaixa, setFilterCaixa] = useState(false);
+  const [filterRipa, setFilterRipa] = useState(false);
+  const [filterSurdo, setFilterSurdo] = useState(false);
+
   const renderers = {
     img: MyImage,
   };
@@ -93,13 +103,147 @@ export default function Ratinhos({ rowsByYear, years }: any) {
 
       <AltHeader currentPage={"Ratinhos"} />
       <main className={styles.mainContent}>
+        <div className={styles.searchBarMobile}>
+          <input
+            type="text"
+            placeholder="Buscar ritmista, ano ou cargo"
+            onChange={(e) => {
+              setSearchText(e.target.value);
+              console.log(e.target.value);
+            }}
+          />
+        </div>
+        <div className={styles.filtersMobile}>
+          <label className={styles.checkBoxContainer}>
+            Chocalho
+            <input
+              type="checkbox"
+              onChange={(e) => setFilterChocalho(e.target.checked)}
+              checked={filterChocalho}
+            />
+            <span className={styles.checkmark}></span>
+          </label>
+          <label className={styles.checkBoxContainer}>
+            Agogô
+            <input
+              type="checkbox"
+              onChange={(e) => setFilterAgogo(e.target.checked)}
+              checked={filterAgogo}
+            />
+            <span className={styles.checkmark}></span>
+          </label>
+          <label className={styles.checkBoxContainer}>
+            Tamborim
+            <input
+              type="checkbox"
+              onChange={(e) => setFilterTamborim(e.target.checked)}
+              checked={filterTamborim}
+            />
+            <span className={styles.checkmark}></span>
+          </label>
+
+          <label className={styles.checkBoxContainer}>
+            Caixa
+            <input
+              type="checkbox"
+              onChange={(e) => setFilterCaixa(e.target.checked)}
+              checked={filterCaixa}
+            />
+            <span className={styles.checkmark}></span>
+          </label>
+          <label className={styles.checkBoxContainer}>
+            Ripa
+            <input
+              type="checkbox"
+              onChange={(e) => setFilterRipa(e.target.checked)}
+              checked={filterRipa}
+            />
+            <span className={styles.checkmark}></span>
+          </label>
+          <label className={styles.checkBoxContainer}>
+            Surdo
+            <input
+              type="checkbox"
+              onChange={(e) => setFilterSurdo(e.target.checked)}
+              checked={filterSurdo}
+            />
+            <span className={styles.checkmark}></span>
+          </label>
+        </div>
         <article>
           {years.map((year: string) => {
+            let ratinhosRendered = 0;
+
             return (
               <>
-                <h1 key={year}>{year}</h1>
+                {searchText === "" && <h1 key={year}>{year}</h1>}
                 <div className={styles.cardsContainer}>
                   {rowsByYear[year].map((row: any) => {
+                    let notFiltered = false;
+
+                    const filter = searchText.toUpperCase().trim();
+                    const name = row[0].toUpperCase().trim();
+
+                    if (searchText != "") {
+                      row.map((item: string) => {
+                        if (item.toUpperCase().trim().indexOf(filter) >= 0)
+                          notFiltered = true;
+                      });
+                      if (!notFiltered) {
+                        return <></>;
+                      }
+                    }
+
+                    notFiltered = false;
+                    if (
+                      filterChocalho ||
+                      filterAgogo ||
+                      filterTamborim ||
+                      filterCaixa ||
+                      filterRipa ||
+                      filterSurdo
+                    ) {
+                      if (
+                        filterChocalho &&
+                        (row.slice(9, 15).indexOf("2") >= 0 ||
+                          row.slice(9, 15).indexOf("10") >= 0)
+                      )
+                        notFiltered = true;
+                      if (
+                        filterAgogo &&
+                        (row.slice(9, 15).indexOf("3") >= 0 ||
+                          row.slice(9, 15).indexOf("11") >= 0)
+                      )
+                        notFiltered = true;
+                      if (
+                        filterTamborim &&
+                        (row.slice(9, 15).indexOf("4") >= 0 ||
+                          row.slice(9, 15).indexOf("12") >= 0)
+                      )
+                        notFiltered = true;
+                      if (
+                        filterCaixa &&
+                        (row.slice(9, 15).indexOf("5") >= 0 ||
+                          row.slice(9, 15).indexOf("13") >= 0)
+                      )
+                        notFiltered = true;
+                      if (
+                        filterRipa &&
+                        (row.slice(9, 15).indexOf("6") >= 0 ||
+                          row.slice(9, 15).indexOf("14") >= 0)
+                      )
+                        notFiltered = true;
+                      if (
+                        filterSurdo &&
+                        (row.slice(9, 15).indexOf("7") >= 0 ||
+                          row.slice(9, 15).indexOf("15") >= 0)
+                      )
+                        notFiltered = true;
+                      if (!notFiltered) return <></>;
+                    }
+
+                    ratinhosRendered += 1;
+
                     return (
                       <RatinhoCard
                         key={row}
@@ -118,6 +262,10 @@ export default function Ratinhos({ rowsByYear, years }: any) {
                       />
                     );
                   })}
+
+                  {ratinhosRendered === 0 && searchText === "" && (
+                    <p>Nenhum ritmista de {year} encontrado</p>
+                  )}
                 </div>
               </>
             );

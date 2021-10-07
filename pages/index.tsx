@@ -101,9 +101,13 @@ const Home: NextPage = ({ rows }: any) => {
             {rows.map((row: any) => {
               const filter = searchText.toUpperCase().trim();
               const title = row[0].toUpperCase().trim();
+              const content = row[1].toUpperCase().trim();
 
               if (searchText != "") {
-                if (title.indexOf(filter) == -1) {
+                if (
+                  title.indexOf(filter) == -1 &&
+                  content.indexOf(filter) == -1
+                ) {
                   return <></>;
                 }
               }
