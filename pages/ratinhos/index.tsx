@@ -60,9 +60,41 @@ export async function getStaticProps() {
   rows?.shift();
   rows?.shift();
 
+  let ritmistasByInstrument = [0, 0, 0, 0, 0, 0];
   let years: string[] = [];
   rows?.map((row) => {
     if (years.indexOf(row[1]) === -1) years.push(row[1]);
+
+    if (
+      row.slice(9, 15).indexOf("2") >= 0 ||
+      row.slice(9, 15).indexOf("10") >= 0
+    )
+      ritmistasByInstrument[0] += 1;
+    if (
+      row.slice(9, 15).indexOf("3") >= 0 ||
+      row.slice(9, 15).indexOf("11") >= 0
+    )
+      ritmistasByInstrument[1] += 1;
+    if (
+      row.slice(9, 15).indexOf("4") >= 0 ||
+      row.slice(9, 15).indexOf("12") >= 0
+    )
+      ritmistasByInstrument[2] += 1;
+    if (
+      row.slice(9, 15).indexOf("5") >= 0 ||
+      row.slice(9, 15).indexOf("13") >= 0
+    )
+      ritmistasByInstrument[3] += 1;
+    if (
+      row.slice(9, 15).indexOf("6") >= 0 ||
+      row.slice(9, 15).indexOf("14") >= 0
+    )
+      ritmistasByInstrument[4] += 1;
+    if (
+      row.slice(9, 15).indexOf("7") >= 0 ||
+      row.slice(9, 15).indexOf("15") >= 0
+    )
+      ritmistasByInstrument[5] += 1;
   });
 
   let rowsByYear = {};
@@ -74,12 +106,16 @@ export async function getStaticProps() {
   });
 
   return {
-    props: { rowsByYear, years },
+    props: { rowsByYear, years, ritmistasByInstrument },
     revalidate: 30,
   };
 }
 
-export default function Ratinhos({ rowsByYear, years }: any) {
+export default function Ratinhos({
+  rowsByYear,
+  years,
+  ritmistasByInstrument,
+}: any) {
   const [searchText, setSearchText] = useState("");
 
   const [filterChocalho, setFilterChocalho] = useState(false);
@@ -115,7 +151,7 @@ export default function Ratinhos({ rowsByYear, years }: any) {
         </div>
         <div className={styles.filtersMobile}>
           <label className={styles.checkBoxContainer}>
-            Chocalho
+            Chocalho ({ritmistasByInstrument[0]})
             <input
               type="checkbox"
               onChange={(e) => setFilterChocalho(e.target.checked)}
@@ -124,7 +160,7 @@ export default function Ratinhos({ rowsByYear, years }: any) {
             <span className={styles.checkmark}></span>
           </label>
           <label className={styles.checkBoxContainer}>
-            Agogô
+            Agogô ({ritmistasByInstrument[1]})
             <input
               type="checkbox"
               onChange={(e) => setFilterAgogo(e.target.checked)}
@@ -133,7 +169,7 @@ export default function Ratinhos({ rowsByYear, years }: any) {
             <span className={styles.checkmark}></span>
           </label>
           <label className={styles.checkBoxContainer}>
-            Tamborim
+            Tamborim ({ritmistasByInstrument[2]})
             <input
               type="checkbox"
               onChange={(e) => setFilterTamborim(e.target.checked)}
@@ -143,7 +179,7 @@ export default function Ratinhos({ rowsByYear, years }: any) {
           </label>
 
           <label className={styles.checkBoxContainer}>
-            Caixa
+            Caixa ({ritmistasByInstrument[3]})
             <input
               type="checkbox"
               onChange={(e) => setFilterCaixa(e.target.checked)}
@@ -152,7 +188,7 @@ export default function Ratinhos({ rowsByYear, years }: any) {
             <span className={styles.checkmark}></span>
           </label>
           <label className={styles.checkBoxContainer}>
-            Ripa
+            Ripa ({ritmistasByInstrument[4]})
             <input
               type="checkbox"
               onChange={(e) => setFilterRipa(e.target.checked)}
@@ -161,7 +197,7 @@ export default function Ratinhos({ rowsByYear, years }: any) {
             <span className={styles.checkmark}></span>
           </label>
           <label className={styles.checkBoxContainer}>
-            Surdo
+            Surdo ({ritmistasByInstrument[5]})
             <input
               type="checkbox"
               onChange={(e) => setFilterSurdo(e.target.checked)}

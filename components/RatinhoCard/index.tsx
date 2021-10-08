@@ -19,6 +19,7 @@ function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
         <img
           src={profilePicSrc === "Sem foto" ? placeholderPhoto : profilePicSrc}
           alt="foto"
+          loading="lazy"
         ></img>
         <div className={styles.badges}>
           <Badge id={badges[0]} />
