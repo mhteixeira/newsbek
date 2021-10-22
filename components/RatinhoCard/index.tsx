@@ -13,6 +13,12 @@ interface RatinhoCardProps {
 }
 
 function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
+  badges.sort((a: string, b: string) =>
+    Number(a) > Number(b) || Number(a) == 0 ? 1 : Number(b) > Number(a) ? -1 : 0
+  );
+
+  if (name === "B.O.") console.log(badges);
+
   return (
     <div className={styles.card}>
       <div className={styles.front}>
@@ -21,6 +27,7 @@ function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
           alt="foto"
           loading="lazy"
         ></img>
+
         <div className={styles.badges}>
           <Badge id={badges[0]} />
           <Badge id={badges[1]} />
@@ -28,6 +35,14 @@ function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
           <Badge id={badges[3]} />
           <Badge id={badges[4]} />
           <Badge id={badges[5]} />
+        </div>
+        <div className={`${styles.badges}` + ` ${styles.badgesRight}`}>
+          <Badge id={badges[6]} />
+          <Badge id={badges[7]} />
+          <Badge id={badges[8]} />
+          <Badge id={badges[9]} />
+          <Badge id={badges[10]} />
+          <Badge id={badges[11]} />
         </div>
       </div>
       <h3>

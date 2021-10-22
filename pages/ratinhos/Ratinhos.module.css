@@ -167,6 +167,10 @@
   flex-direction: column-reverse;
 }
 
+.badgesRight {
+  align-items: flex-end !important;
+}
+
 .badges img {
   border: none;
   margin: 0;
@@ -227,8 +231,16 @@
   width: 12px;
   background: var(--color-bg);
   bottom: -3px;
-  left: 20px;
+  left: 15px;
   transform: translateX(-50%) rotate(45deg);
+}
+.badgesRight .tooltip {
+  right: 0;
+}
+
+.badgesRight .tooltip::before {
+  left: auto;
+  right: 9px;
 }
 
 @media (max-width: 375px) {

@@ -290,11 +290,7 @@ export default function Ratinhos({
                             ? "Sem foto"
                             : "https://drive.google.com/uc?id=" + row[2]
                         }
-                        badges={row
-                          .slice(9, 15)
-                          .sort((a: string, b: string) =>
-                            a > b ? 1 : b > a ? -1 : 0
-                          )}
+                        badges={row.slice(15, 27)}
                       />
                     );
                   })}
