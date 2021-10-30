@@ -17,8 +17,6 @@ function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
     Number(a) > Number(b) || Number(a) == 0 ? 1 : Number(b) > Number(a) ? -1 : 0
   );
 
-  if (name === "B.O.") console.log(badges);
-
   return (
     <div className={styles.card}>
       <div className={styles.front}>

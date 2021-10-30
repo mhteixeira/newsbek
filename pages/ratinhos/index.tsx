@@ -20,6 +20,9 @@ const shimmer = (w: number, h: number) => `
   <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
 </svg>`;
 
+const ConditionalWrapper = ({ condition, wrapper, children }: any) =>
+  condition ? wrapper(children) : children;
+
 const toBase64 = (str: string) =>
   typeof window === "undefined"
     ? Buffer.from(str).toString("base64")
@@ -65,35 +68,19 @@ export async function getStaticProps() {
   rows?.map((row) => {
     if (years.indexOf(row[1]) === -1) years.push(row[1]);
 
-    if (
-      row.slice(9, 15).indexOf("2") >= 0 ||
-      row.slice(9, 15).indexOf("10") >= 0
-    )
+    let badgesIDs = row.slice(15, 27);
+
+    if (badgesIDs.indexOf("2") >= 0 || badgesIDs.indexOf("10") >= 0)
       ritmistasByInstrument[0] += 1;
-    if (
-      row.slice(9, 15).indexOf("3") >= 0 ||
-      row.slice(9, 15).indexOf("11") >= 0
-    )
+    if (badgesIDs.indexOf("3") >= 0 || badgesIDs.indexOf("11") >= 0)
       ritmistasByInstrument[1] += 1;
-    if (
-      row.slice(9, 15).indexOf("4") >= 0 ||
-      row.slice(9, 15).indexOf("12") >= 0
-    )
+    if (badgesIDs.indexOf("4") >= 0 || badgesIDs.indexOf("12") >= 0)
       ritmistasByInstrument[2] += 1;
-    if (
-      row.slice(9, 15).indexOf("5") >= 0 ||
-      row.slice(9, 15).indexOf("13") >= 0
-    )
+    if (badgesIDs.indexOf("5") >= 0 || badgesIDs.indexOf("13") >= 0)
       ritmistasByInstrument[3] += 1;
-    if (
-      row.slice(9, 15).indexOf("6") >= 0 ||
-      row.slice(9, 15).indexOf("14") >= 0
-    )
+    if (badgesIDs.indexOf("6") >= 0 || badgesIDs.indexOf("14") >= 0)
       ritmistasByInstrument[4] += 1;
-    if (
-      row.slice(9, 15).indexOf("7") >= 0 ||
-      row.slice(9, 15).indexOf("15") >= 0
-    )
+    if (badgesIDs.indexOf("7") >= 0 || badgesIDs.indexOf("15") >= 0)
       ritmistasByInstrument[5] += 1;
   });
 
@@ -145,7 +132,6 @@ export default function Ratinhos({
             placeholder="Buscar ritmista, ano ou cargo"
             onChange={(e) => {
               setSearchText(e.target.value);
-              console.log(e.target.value);
             }}
           />
         </div>
@@ -213,7 +199,13 @@ export default function Ratinhos({
             return (
               <>
                 {searchText === "" && <h1 key={year}>{year}</h1>}
-                <div className={styles.cardsContainer}>
+                {/* <div className={styles.cardsContainer}> */}
+                <ConditionalWrapper
+                  condition={searchText === ""}
+                  wrapper={(children: any) => (
+                    <div className={styles.cardsContainer}>{children}</div>
+                  )}
+                >
                   {rowsByYear[year].map((row: any) => {
                     let notFiltered = false;
 
@@ -239,40 +231,42 @@ export default function Ratinhos({
                       filterRipa ||
                       filterSurdo
                     ) {
+                      let badgesIDs = row.slice(15, 27);
+
                       if (
                         filterChocalho &&
-                        (row.slice(9, 15).indexOf("2") >= 0 ||
-                          row.slice(9, 15).indexOf("10") >= 0)
+                        (badgesIDs.indexOf("2") >= 0 ||
+                          badgesIDs.indexOf("10") >= 0)
                       )
                         notFiltered = true;
                       if (
                         filterAgogo &&
-                        (row.slice(9, 15).indexOf("3") >= 0 ||
-                          row.slice(9, 15).indexOf("11") >= 0)
+                        (badgesIDs.indexOf("3") >= 0 ||
+                          badgesIDs.indexOf("11") >= 0)
                       )
                         notFiltered = true;
                       if (
                         filterTamborim &&
-                        (row.slice(9, 15).indexOf("4") >= 0 ||
-                          row.slice(9, 15).indexOf("12") >= 0)
+                        (badgesIDs.indexOf("4") >= 0 ||
+                          badgesIDs.indexOf("12") >= 0)
                       )
                         notFiltered = true;
                       if (
                         filterCaixa &&
-                        (row.slice(9, 15).indexOf("5") >= 0 ||
-                          row.slice(9, 15).indexOf("13") >= 0)
+                        (badgesIDs.indexOf("5") >= 0 ||
+                          badgesIDs.indexOf("13") >= 0)
                       )
                         notFiltered = true;
                       if (
                         filterRipa &&
-                        (row.slice(9, 15).indexOf("6") >= 0 ||
-                          row.slice(9, 15).indexOf("14") >= 0)
+                        (badgesIDs.indexOf("6") >= 0 ||
+                          badgesIDs.indexOf("14") >= 0)
                       )
                         notFiltered = true;
                       if (
                         filterSurdo &&
-                        (row.slice(9, 15).indexOf("7") >= 0 ||
-                          row.slice(9, 15).indexOf("15") >= 0)
+                        (badgesIDs.indexOf("7") >= 0 ||
+                          badgesIDs.indexOf("15") >= 0)
                       )
                         notFiltered = true;
                       if (!notFiltered) return <></>;
@@ -298,7 +292,7 @@ export default function Ratinhos({
                   {ratinhosRendered === 0 && searchText === "" && (
                     <p>Nenhum ritmista de {year} encontrado</p>
                   )}
-                </div>
+                </ConditionalWrapper>
               </>
             );
           })}

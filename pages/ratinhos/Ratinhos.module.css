@@ -15,6 +15,10 @@
   max-width: 1100px;
 
   margin: 0 2.5rem;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .mainContent h1 {
