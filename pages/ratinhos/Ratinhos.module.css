@@ -149,7 +149,14 @@
   color: #141414;
 }
 
-.card img {
+.imgDiv {
+  margin: 1.6rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* .card img,s */
+.imgDiv {
   border-radius: 0.8rem;
   border-style: solid;
   border-color: var(--color-primary);
@@ -163,19 +170,22 @@
   width: 15rem;
 }
 
-.badges {
+.leftBadges,
+.rightBadges {
   display: flex;
   height: 20rem;
   margin-top: -20rem;
   margin-left: 0.4rem;
   flex-direction: column-reverse;
+  z-index: 3;
 }
 
-.badgesRight {
+.rightBadges {
   align-items: flex-end !important;
 }
 
-.badges img {
+.leftBadges img,
+.rightBadges img {
   border: none;
   margin: 0;
   margin-top: -0.4rem;
@@ -185,7 +195,8 @@
   position: relative;
 }
 
-.badges img::before {
+.leftBadges img::before,
+.rightBadges img::before {
   content: attr(tooltipText);
 }
 
@@ -238,11 +249,11 @@
   left: 15px;
   transform: translateX(-50%) rotate(45deg);
 }
-.badgesRight .tooltip {
+.rightBadges .tooltip {
   right: 0;
 }
 
-.badgesRight .tooltip::before {
+.rightBadges .tooltip::before {
   left: auto;
   right: 9px;
 }
@@ -251,7 +262,8 @@
   .card {
     width: 105px !important;
   }
-  .card img {
+  /* .card img, */
+  .imgDiv {
     height: 15rem !important;
     width: 11rem !important;
   }
@@ -262,12 +274,13 @@
     width: 130px;
   }
 
-  .card img {
+  /* .card img, */
+  .imgDiv {
     height: 17rem;
     width: 12rem;
   }
 
-  .badges img {
+  .leftBadges img {
     height: 3.5rem !important;
     width: 3.5rem !important;
   }
