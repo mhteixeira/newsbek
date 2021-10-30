@@ -180,10 +180,15 @@
   z-index: 3;
 }
 
+.leftBadges {
+  margin-top: 0.5rem;
+  margin-left: -1.5rem;
+}
+
 .rightBadges {
   align-items: flex-end !important;
   margin-top: -20rem;
-  margin-left: 13.5rem;
+  margin-left: 16rem;
 }
 
 .leftBadges img,
@@ -270,6 +275,22 @@
     height: 15rem !important;
     width: 11rem !important;
   }
+
+.leftBadges img,
+  .rightBadges img {
+    height: 3rem !important;
+    width: 3rem !important;
+  }
+
+    .leftBadges {
+    margin-top: -4.7rem  !important;
+    margin-left: -1rem  !important;
+  }
+
+  .rightBadges {
+    margin-top: -20.2rem !important;
+    margin-left: 12.5rem !important;
+  }
 }
 
 @media (max-width: 870px) {
@@ -285,9 +306,20 @@
 
   .leftBadges img,
   .rightBadges img {
-    height: 3.5rem !important;
-    width: 3.5rem !important;
+    height: 3.5rem;
+    width: 3.5rem;
   }
+
+  .leftBadges {
+    margin-top: -2.4rem;
+    margin-left: -1.5rem;
+  }
+
+  .rightBadges {
+    margin-top: -20rem;
+    margin-left: 13.5rem;
+  }
+
 }
 
 .searchBarMobile {
