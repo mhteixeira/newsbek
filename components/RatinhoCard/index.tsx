@@ -46,15 +46,15 @@ function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
   return (
     <div className={styles.card}>
       <div className={styles.front}>
-        
-          {/* <img
+{/*         
+          <img
             src={
               profilePicSrc === "Sem foto" ? placeholderPhoto : profilePicSrc
             }
             alt={"Foto: " + name}
             loading="lazy"
-          ></img>
-         */}
+          ></img> */}
+        
         <div className={styles.imgDiv}>
           <Image
             alt={"Foto: " + name}
@@ -67,9 +67,10 @@ function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
               shimmer(700, 475)
             )}`}
           />
-        </div>
+          <div></div>
         <div className={styles.leftBadges}>{leftBadges}</div>
         <div className={styles.rightBadges}>{rightBadges}</div>
+        </div>
       </div>
       <h3>
         {name}

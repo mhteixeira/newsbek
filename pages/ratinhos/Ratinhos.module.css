@@ -155,7 +155,7 @@
   z-index: 1;
 }
 
-/* .card img,s */
+.card img,
 .imgDiv {
   border-radius: 0.8rem;
   border-style: solid;
@@ -174,14 +174,16 @@
 .rightBadges {
   display: flex;
   height: 20rem;
-  margin-top: -20rem;
-  margin-left: 0.4rem;
+  margin-top: -2.4rem;
+  margin-left: -1.5rem;
   flex-direction: column-reverse;
   z-index: 3;
 }
 
 .rightBadges {
   align-items: flex-end !important;
+  margin-top: -20rem;
+  margin-left: 13.5rem;
 }
 
 .leftBadges img,
@@ -194,6 +196,7 @@
 
   position: relative;
 }
+
 
 .leftBadges img::before,
 .rightBadges img::before {
@@ -262,7 +265,7 @@
   .card {
     width: 105px !important;
   }
-  /* .card img, */
+  .card img,
   .imgDiv {
     height: 15rem !important;
     width: 11rem !important;
@@ -274,13 +277,14 @@
     width: 130px;
   }
 
-  /* .card img, */
+  .card img,
   .imgDiv {
     height: 17rem;
     width: 12rem;
   }
 
-  .leftBadges img {
+  .leftBadges img,
+  .rightBadges img {
     height: 3.5rem !important;
     width: 3.5rem !important;
   }
