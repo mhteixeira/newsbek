@@ -3,6 +3,7 @@ import styles from "../../pages/ratinhos/Ratinhos.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Badge from "../Badge";
+import { useState } from "react";
 
 const placeholderPhoto = "/images/Ratinho.svg";
 interface RatinhoCardProps {
@@ -36,6 +37,8 @@ function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
     Number(a) > Number(b) || Number(a) == 0 ? 1 : Number(b) > Number(a) ? -1 : 0
   );
 
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
   let leftBadges = [];
   let rightBadges = [];
   for (let i = 0; i <= 5; i++) {
@@ -46,31 +49,12 @@ function RatinhoCard({ name, year, profilePicSrc, badges }: RatinhoCardProps) {
   return (
     <div className={styles.card}>
       <div className={styles.front}>
-{/*         
-          <img
-            src={
-              profilePicSrc === "Sem foto" ? placeholderPhoto : profilePicSrc
-            }
-            alt={"Foto: " + name}
-            loading="lazy"
-          ></img> */}
-        
-        <div className={styles.imgDiv}>
-          <Image
-            alt={"Foto: " + name}
-            src={
-              profilePicSrc === "Sem foto" ? placeholderPhoto : profilePicSrc
-            }
-            layout="fill"
-            placeholder="blur"
-            blurDataURL={`data:image/svg+xml;base64,${toBase64(
-              shimmer(700, 475)
-            )}`}
-          />
-          <div></div>
+        <img
+          src={profilePicSrc === "Sem foto" ? placeholderPhoto : profilePicSrc}
+          alt={"Foto: " + name}
+        />
         <div className={styles.leftBadges}>{leftBadges}</div>
         <div className={styles.rightBadges}>{rightBadges}</div>
-        </div>
       </div>
       <h3>
         {name}

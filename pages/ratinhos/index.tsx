@@ -68,7 +68,6 @@ export default function Ratinhos({
   years,
   ritmistasByInstrument,
 }: any) {
-  
   const [searchText, setSearchText] = useState("");
 
   const [filterChocalho, setFilterChocalho] = useState(false);
@@ -159,7 +158,7 @@ export default function Ratinhos({
             let ratinhosRendered = 0;
 
             return (
-              <>
+              <div key={year}>
                 {searchText === "" && <h1 key={year}>{year}</h1>}
                 {/* <div className={styles.cardsContainer}> */}
                 <ConditionalWrapper
@@ -255,7 +254,7 @@ export default function Ratinhos({
                     <p>Nenhum ritmista de {year} encontrado</p>
                   )}
                 </ConditionalWrapper>
-              </>
+              </div>
             );
           })}
           <div className={styles.arrows}></div>
