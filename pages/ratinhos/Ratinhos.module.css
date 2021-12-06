@@ -19,6 +19,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .mainContent h1 {
