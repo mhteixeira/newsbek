@@ -35,17 +35,17 @@ export async function getStaticProps() {
 
     let badgesIDs = row.slice(15, 27);
 
-    if (badgesIDs.indexOf("2") >= 0 || badgesIDs.indexOf("10") >= 0)
+    if (badgesIDs.indexOf("1") >= 0 || badgesIDs.indexOf("9") >= 0)
       ritmistasByInstrument[0] += 1;
-    if (badgesIDs.indexOf("3") >= 0 || badgesIDs.indexOf("11") >= 0)
+    if (badgesIDs.indexOf("2") >= 0 || badgesIDs.indexOf("10") >= 0)
       ritmistasByInstrument[1] += 1;
-    if (badgesIDs.indexOf("4") >= 0 || badgesIDs.indexOf("12") >= 0)
+    if (badgesIDs.indexOf("3") >= 0 || badgesIDs.indexOf("11") >= 0)
       ritmistasByInstrument[2] += 1;
-    if (badgesIDs.indexOf("5") >= 0 || badgesIDs.indexOf("13") >= 0)
+    if (badgesIDs.indexOf("4") >= 0 || badgesIDs.indexOf("12") >= 0)
       ritmistasByInstrument[3] += 1;
-    if (badgesIDs.indexOf("6") >= 0 || badgesIDs.indexOf("14") >= 0)
+    if (badgesIDs.indexOf("5") >= 0 || badgesIDs.indexOf("13") >= 0)
       ritmistasByInstrument[4] += 1;
-    if (badgesIDs.indexOf("7") >= 0 || badgesIDs.indexOf("15") >= 0)
+    if (badgesIDs.indexOf("6") >= 0 || badgesIDs.indexOf("14") >= 0)
       ritmistasByInstrument[5] += 1;
   });
 
